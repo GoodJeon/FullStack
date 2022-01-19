@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action='html-form-res.html' method='post'>
+        <filedset>
+            <legend>회원가입</legend>
+
+            <p>ID : <input type='text' name='id' /></p>
+            <p>PW : <input type='password' name='pw' /></p>
+            <p>Email 수신 여부<br/>
+                <input type='radio' name='rdo' value='y' />y
+                <input type='radio' name='rdo' value='n' />n
+            </p>
+            <p>관심분야<br>
+                <input type='checkbox' name='web' value='web' />WEB<br>
+                <input type='checkbox' name='ai' value='ai' />Data Science<br/>
+                <input type='checkbox' name='engi' value='engi' />Data Engineer<br>
+            </p>
+            <p>하고싶은 말<br>
+                <textarea name='etc' cols='60' rows='10'></textarea>
+            </p>
+            <p>
+                <input type='button' value='그냥 버튼' /><br>
+                <input type='reset' value='취소' /><br/>
+                <input type='submit' value='전송'/>
+            </p>
+        </filedset>
+    </form>
+    
+
+
+</body>
+</html>
