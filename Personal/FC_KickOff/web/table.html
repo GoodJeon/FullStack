@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <table border='3'>
+        <colgroup>
+            <col width='100px'>
+            <col width='150px'>
+            <col style='background-color: green;' width='200px'>
+        </colgroup>
+
+        <thead>
+            <tr>
+                <th>성명</th>
+                <th>나이</th>
+                <th>성별</th>
+                <th>국적</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr>
+                <td rowspan='2'>열 합치기</td>
+                <td>28</td>
+                <td>남</td>
+                <td>대한민국</td>
+                
+            </tr>
+            <tr>
+                <td>35</td>
+                <td colspan='2'>미국 남자</td>
+            </tr>
+            <tr>
+                <td>아무개</td>
+                <td>12</td>
+                <td>알수없음</td>
+                <td>외계</td>
+            </tr>
+        </tbody>
+
+
+        <tfoot>
+            <tr>
+                <td colspan='4' align='center'>행 4개 합치고 가운데정렬</td>
+            </tr>
+
+        </tfoot>
+    </table>
+
+
+
+</body>
+</html>
