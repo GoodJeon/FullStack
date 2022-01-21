@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script>
+        function strTest01(){
+            var str01 = 'String';
+            var str02 = 'Test';
+
+            var str03 = str01 + str02; // 더하기 연산자로 문자열 연결 가능
+            // alert(str03);
+
+            var newString = str01.concat('Test', 'Java', 'Script'); // .concat으로도 더하기 연산자로 문자열 연결 가능
+            alert(newString)
+
+            // 배열.join('문자') : 배열 사이사이에 문자가 삽입된다.
+            var joinTest = ['5','10','15','20'].join('+') // 파이썬에서는 리스트, JS에서는 배열이라 부른다.
+            alert(joinTest);
+        }
+
+        function strTest02(){
+            var numVal = 12.5;
+            var bool = true;
+            // 문자열과 다른 타입이 만나면 문자열로 합쳐짐
+            var result = 'String' + numVal + bool;
+            alert(result);
+            alert(typeof(result));
+        }
+
+        function strTest03(){
+            var str = prompt('이름을 입력하세요');
+            var span = document.getElementById('res');
+
+            if (str == '동준') {
+                span.textContent = str + "님 환영합니다!";
+            } else if (str.toLowerCase() == 'dongjun') {
+                span.textContent = str + ', hello!';
+            } else {
+                span.textContent = '이름을 다시한번 확인해 주십시오~';
+            }
+            
+            // 자동 형 변환 : 여기선 숫자 10을 문자 10으로 자동 형변환. 그래서 숫자 10이라 나옴
+            var numVal = 10;
+            if (numVal == '10') {
+                alert('== 연산자 사용 : 숫자 10 입니다.');
+            } else {
+                alert('== 연산자 사용 : 숫자 10이 아닙니다.');
+            }
+            // === : 엄격한 비교 : 숫자 10이 아니라고 나온다.
+            if (numVal === '10') {
+                alert('=== 연산자 사용 : 숫자 10입니다.');
+            } else {
+                alert('=== 연산자 사용 : 숫자 10이 아닙니다.');
+            }
+        
+            // 문자열 객체
+            var strObj = new String('동준');
+            var strLiteral = '동준';
+
+            if (strObj == strLiteral) {
+                alert('문자가 같습니다.');
+            } else {
+                alert('문자가 다릅니다.');
+            }
+            
+            if (strObj === strLiteral) {  // 다르다고 나오는데 그 이유는 문자열 != 문자열 객체 이기 때문
+                alert('문자가 같습니다. ===');
+            } else {
+                alert('문자가 다릅니다. ===');
+            }
+        }
+
+        function strTest04(){
+            // indexOf : 왼 -> 오
+            // lastIndexOf : 오 -> 왼
+            // 검색한 단어의 첫번째 인덱스!!
+            // 값이 존재하지 않으면 -1
+            var strVal = '차범근 박지성 손흥민 홍명보 차범근';
+            var prop = prompt('검색할 이름을 입력해 주세요');
+            alert('indexOf : ' + strVal.indexOf(prop)); 
+            alert('lastIndexOf : ' + strVal.lastIndexOf(prop));
+
+        }
+
+        function strTest05(){
+            var strVal = 'substring을 @활용해서 문자를 나눌 수 있다.';
+            var startIndex = strVal.indexOf("@");
+            var endIndex = strVal.lastIndexOf(".");
+            var res = strVal.substring(startIndex, endIndex);
+            alert(res);
+
+            // var splitVal = strVal.split(" ");
+            // alert(splitVal[1]);
+        }
+
+        function strTest06(){
+            var prop = prompt('쉼표로 구분하여 키워드를 입력해주세요', '사과,바나나,키위,수박');
+            var propArr = prop.split(',');
+
+            var propResult = "";
+            for (var i = 0; i < propArr.length; i++) {
+                propResult += propArr[i] + "<br/>";
+            }
+            document.getElementById('key').innerHTML = propResult;  
+        }
+    </script>
+
+</head>
+<body>
+    
+    <p>문자열 합치기
+        <button onclick='strTest01();'>클릭</button>
+    </p>
+
+    <p>다른 자료형 합치기
+        <button onclick='strTest02();'>클릭</button>
+    </p>
+
+    <p>문자열 비교하기
+        <button onclick='strTest03();'>클릭</button>
+        <span id='res'></span>
+    </p>
+
+    <p>문자열 검색하기
+        <button onclick='strTest04();'>클릭</button>
+    </p>
+
+    <p>문자열 추출하기
+        <button onclick='strTest05();'>클릭</button>
+    </p>
+
+    <p>키워드 나누기
+        <button onclick='strTest06();'>클릭</button>
+    </p>
+    <div id='key'></div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+        
+
+        function object01(){
+            this.name01 = '전동준'; // this. = 객체로 생성했을 때 해당 객체를 외부에서 접근 가능하게 만들어준다. 파이썬의 self.같은
+            var name02 = 'jeon-dj'; // 지역변수로 objTest에서 name02(외부)에서 접근할 수가 없다.
+            this.getName02 = function(){
+                return name02;
+            }
+        }
+        
+        // 객체 리터럴
+        var object02 = {
+            name: "j-dj", // 파이썬 딕셔너리같은 느낌
+            prn: function(){ // prn이 'key' 느낌
+                alert(object02.name + '의 전화번호 : 010-1234-5678');
+            }
+        }
+
+        
+        
+        function objTest(){
+            // 객체 생성 new 
+            var obj01 = new object01();
+            // alert(obj01.name01);
+            // alert(obj01.name02);
+            // alert(obj01.getName02());
+
+            // alert(object02.name);
+            // object02.prn();
+            obj01.prn();
+        }
+        
+        object01.prototype.prn=function(){ // prototype은 객체에 기능을 추가하고 싶을 때 사용
+            alert(this.name01 + '은 최고다.');
+
+        }
+
+    </script>
+</head>
+<body>
+    
+    <h1>object 객체</h1>
+
+    <pre>
+        객체의 구성
+        - property : 속성
+        - function (method) : 기능
+        - this : 객체 내부의 메서드나 속성을 정의
+        - prototype : 객체의 확장
+    </pre>
+
+    <button onclick='objTest();'>확인</button>
+</body>
+</html>
