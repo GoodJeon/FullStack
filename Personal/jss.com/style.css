@@ -12,10 +12,100 @@ header{
     background: #fff;
     font-family: 'Noto Sans KR', sans-serif;
     color: #707070;
-
-
-    
 }
+main{
+
+}
+    
+
+footer{
+    position: relative;
+    width: 100%;
+    min-width: 1200px;
+    overflow: hidden;
+    background-color: #fafafa;
+    border-top: 1px solid #eeeeee;
+}
+
+.text-divider{
+    margin: 0 10px;
+    color: #DDDDDD;
+}
+
+.f_container{
+    width: 1200px;
+    min-height: 320px;
+    margin: 0 auto;
+    padding: 40px 0 70px;
+    overflow: hidden;
+}
+
+.a_info_container{
+    margin-bottom: 30px;
+}
+
+.a_info_container_active{
+    padding-top: 20px;
+    font-weight: 350;
+}
+.dropdown{
+    display: inline-flex;
+    align-items: center;
+    color: #555555;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    cursor: pointer;
+    user-select: none;
+}
+
+.a_serv_container{
+    margin-bottom: 40px;
+}
+
+.a_serv_container_wrapper{
+    display: flex;
+    margin-bottom: 12px;
+}
+
+.service-category{
+    margin-right: 38px;
+    color: #555555;
+    font-weight: bold;
+}
+
+.a_serv{
+    display: flex;
+    align-items: center;
+    margin: 0 -10px 0;
+}
+
+.a_serv_serv{
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+
+.a_addinfo_container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.terms-wrapper{
+    display: flex;
+    align-items: center;
+    margin: -12px;
+}
+
+.terms-wrapper > div{
+    margin: 12px;
+}
+
+.app-store-wrapper{
+    display: flex;
+    align-items: center;
+}
+
 .logo{
     width: 120px;
     vertical-align: middle;
@@ -32,6 +122,14 @@ header{
     white-space: nowrap;
 }
 
+.beta{
+    font-size: 12px;
+    line-height: 18px;
+    position: relative;
+    top: -6px;
+    left: -4px;
+    color: #ff6813;
+}
 
 .t_right{
     cursor: pointer;
