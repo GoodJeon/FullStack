@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        img{
+            vertical-align: middle;
+            width: 300px;
+            height: 300px;
+        }
+        a{
+            font-size: 30px;
+            text-decoration: none;
+        }
+    </style>
+
+    <script>
+        window.onload=function(){
+            var anchs = document.querySelectorAll('a');
+            var img = document.querySelector('img');
+
+            var count = 1;
+            
+            // 왼쪽 화살표
+            anchs[0].onclick = function(){
+                var imgAlt = img.getAttribute('alt');
+                if (imgAlt == 'img01') {
+                    count = 4;
+                    img.setAttribute('alt', 'img04');
+                    img.setAttribute('src', 'resources/imgs/img04.png');
+                } else{
+                    img.setAttribute('alt', 'img0'+(--count));
+                    img.setAttribute('src', 'resources/imgs/img0'+(count)+'.png');
+                }
+            }
+
+            // 오른쪽 화살표
+            anchs[1].onclick = function(){
+                var imgAlt = img.getAttribute('alt');
+                if (imgAlt == 'img04') {
+                    count = 0;
+                    img.setAttribute('alt', 'img01');
+                    img.setAttribute('src', 'resources/imgs/img01.png');
+                } else{
+                    img.setAttribute('alt', 'img0'+(++count));
+                    img.setAttribute('src', 'resources/imgs/img0'+(count)+'.png');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    
+    <div>
+        <a href='#' id='lt'>◀️</a>
+        <img src='resources/imgs/img01.png' alt='img01'>
+        <a href='#' id='gt'>▶️</a>
+    </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+    function elementCreate(){
+        
+        // element 생성
+        var div = document.createElement('div');   // <div></div>
+
+        // attribute 생성 
+        // 방법1
+        // var attr = document.createAttribute('style');   // style=''
+        // attr.nodeValue = 'border:2px solid blue'; // style = 'border:2px solid blue'
+        // div.setAttributeNode(attr);  // <div style='border:2px solid blue'></div>
+
+        // 방법 2
+        div.setAttribute('style', 'border: 2px solid red;');
+
+
+
+        // textnode 생성
+        var txt = document.createTextNode('엘리먼트 생성!!'); // 엘리먼트 생성
+        div.appendChild(txt);  // <div style='border:2px solid blue'>엘리먼트 생성</div>
+
+        document.body.appendChild(div); // 바디 태그의 가장 마지막 자식으로 노드가 생성
+
+
+    }
+</script>
+<body>
+    
+    <button onclick='elementCreate();'>엘리먼트 생성하기</button>
+
+
+    <!--
+        엘리먼트 객체 생성 : createElement('tagname');
+        txt객체 생성 : createTextNode('txt');
+        객체의 속성 : 
+        - creatAttribute('attributename');
+          setAttributeNode('attribute object');
+        - setAttribute('attributename', 'attributeValue');
+    -->
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--
+        emplist.xml을 서버에서 가지고 와서
+        xml 파일 안에 있는 데이터들을
+        table 안에
+        tr태그 만들고
+        td태그 만들고
+        텍스트 넣어서 
+        화면에 출력해라.
+    -->
+    <script>
+        function ajaxTest(){
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function(){ //readystate라는 것이 change될때 마다 호출(on) 된다.
+                // 4: 요청의 완료
+                if(xhr.readyState == 4){
+                    // 200: 정상 응답
+                    if(xhr.status == 200){
+                        // alert(xhr.responseText);
+                        var respXml = xhr.responseXML; 
+                        // console.log(respXml);
+                        // console.log(typeof(respXml));
+            
+                        var table = document.getElementById('tb');
+                        var rows = respXml.getElementsByTagName('ROW');
+                        // console.log(rows); // 총 107개의 <ROW> 배열이 들어가 있음
+                        
+
+
+                        // 1. column 이름 만들자
+                        // tr 태그를 만들어주는 객체 columnTr
+                        var columnTr = document.createElement('tr');
+                        // rows에는 107개의 <ROW> 배열이 들어가 있는데 그 자식노드들의 길이 만큼 반복
+                        for (var i = 0; i < rows[0].children.length; i++){
+                            // EMPLOYEE_ID, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE이 나옴
+                            // console.log(rows[0].children[i].nodeName);
+                            var th = document.createElement('th');
+                            th.appendChild(document.createTextNode(rows[0].children[i].nodeName));
+
+                            columnTr.appendChild(th);
+                        }
+                        table.appendChild(columnTr);
+
+                        // 2. data 만들자
+
+                        for (var i = 0; i <rows.length; i++) {
+                            var tr = document.createElement('tr');
+                            for (var j=0; j < rows[i].children.length; j++) {
+                                var td = document.createElement('td');
+                                td.appendChild(document.createTextNode(rows[i].children[j].textContent));
+                                tr.appendChild(td)
+                            }
+                            table.appendChild(tr);
+                        }
+                    }
+            
+                }
+            }
+            
+            
+            // get방식으로 요청, 해당 경로에
+            xhr.open('GET','emplist.xml'); // 방식과 경로 지정 후
+            xhr.send(); // 실제로 실행할거야
+
+
+        
+            
+        
+
+
+
+        
+        }
+
+    </script>
+</head>
+<body>
+    
+    <!--
+        ajax : Asynchronous Javascript and Xml(extensial markup language)
+        비 동기 통신
+    -->
+
+    <button onclick='ajaxTest();'>ajax</button>
+    
+    
+
+
+    <table id='tb' border='1'></table>
+
+
+</body>
+</html>
