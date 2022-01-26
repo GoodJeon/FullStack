@@ -14,7 +14,7 @@
                     $(".error").show()
                     return false;
                 }
-            });
+            }); 
 
             $("#confirm").click(function(){
                 $('#result').empty();
@@ -48,6 +48,26 @@
                 //     }
                 // }
                 // $("#result").html('내실 금액 : ' + sum);
+            })
+        })
+
+        function allChk(bool){
+            var chks = $("input[name=chk]")
+        
+            for(var i=0; i < chks.length; i++){
+                chks[i].checked = bool;
+            }
+        }    
+
+        $(function(){
+            $("input[name=chk]").click(function(){
+                var chks = $("input[name=chk]:checked")
+                var all = $("input[name=all]")
+                if (chks.length == 3) {
+                    all.prop("checked", true)
+                } else {
+                    all.prop("checked", false);
+                }
             })
         })
 
