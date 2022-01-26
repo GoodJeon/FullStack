@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+
+    <script>
+        $(document).ready(function(){
+            $('div:eq(0)').css({"border": "1px solid red", "width":"400px", "height":"200px"})
+            $("#view").css({"border":"1px solid red","width":"400px","height":"100px"})
+        })
+
+        // 태그 이름으로 선택
+        function selector01(){
+            $('span').css('color','red');
+            $('#view').text("$('span').css('color','red');");
+        }
+        
+        // id로 선택
+        function selector02(){
+            $('#t1').css('color','green');
+            $('#view').text("$('#t1').css('color','green');");
+
+        }
+
+        // class 선택
+        function selector03(){
+            $('.t2').css('color','violet'); 
+            $('#view').text("$('.t2').css('color','violet');");
+        }
+
+        // parent child 선택
+        function selector04(){
+            $("li span").css("background-color", "blue");
+            $("#view").text('$("li span").css("background-color", "blue");')
+        }
+
+        // parent > child 선택
+        function selector05(){
+            $('li > span').css('color', 'yellow');
+            $('#view').text("$('li > span').css('color', 'yellow');");
+        }
+
+        // nth-child 선택(n: n번째, odd: 홀수 자식, even: 짝수 자식)
+        function selector06(){
+            $('li:nth-child(odd)').css('background-color', 'yellow');
+            $('#view').text("$('li:nth-child(6)').css('background-color', 'yellow');");
+        }
+
+        // first-child 선택
+        function selector07(){
+            $('li:first-child').css('background-color', 'yellowgreen');
+            $('#view').text("$('li:first-child').css('background-color', 'yellowgreen');");
+        }
+
+        // last-child 선택
+        function selector08(){
+            $('li:last-child').css('color','orange');
+            $('#view').text("$('li:last-child').css('color','orange');");
+        }
+
+        // reset
+        function cls(){
+            $('*').css({"color":"", "background-color":""})
+            $('#view').text('');
+        }
+    </script>
+</head>
+<body>
+    
+    <h1>css 선택자</h1>
+
+    <div>
+        <ul>
+            <li><span>tag로 선택</span></li>
+            <li id='t1'>id로 선택</li>
+            <li class='t2'>class로 선택</li>
+            <li><span>parent child로 선택</span></li>
+            <li><b><span>parent &gt; child</span></b>로 선택</li>
+            <li>:nth-child(n/odd/even)로 선택</li>
+            <li>:first-child로 선택</li>
+            <li>:last-child로 선택</li>
+        </ul>
+    </div>
+    <br>
+    <div>
+        <button onclick="selector01()">태그선택(span)</button>
+        <button onclick="selector02()">id선택(t1)</button>
+        <button onclick="selector03()">class선택(t2)</button>
+        <button onclick="selector04()">p c 선택</button>
+        <button onclick="selector05()">p &gt; c 선택</button>
+        <button onclick="selector06()">nth-child 선택</button>
+        <button onclick="selector07()">first-child 선택</button>
+        <button onclick="selector08()">last-child 선택</button>
+        <br>
+        <button onclick="cls()">reset</button>
+    </div>
+
+    <h2>코드 내용</h2>
+    <div id='view'></div>
+
+</body>
+</html>

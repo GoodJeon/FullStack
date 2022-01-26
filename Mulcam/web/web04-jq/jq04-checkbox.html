@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='resources/js/jquery-3.6.0.min.js'></script>
+
+    <script>
+        $(function(){
+            $('#signal').submit(function(){
+                if($(".infobox").val() == null || $(".infobox").val() == ""){
+                    $(".error").show()
+                    return false;
+                }
+            });
+
+            $("#confirm").click(function(){
+                $('#result').empty();
+
+
+                var total = 0;
+                // checkbox 중 checked 되어있는 요소들을 가지고 와서
+                // .each() 를 사용하여 해당 요소들의 가격을 가져오고
+                // 파이썬 map 같은 each
+                $("input[name=chk]:checked").each(function(i){ 
+                    // var chk = $(this);
+                    var chk = $("input[name=chk]:checked").eq(i);
+                    
+                    var book = chk.next().text();
+                    var price = chk.val();
+                    $("#result").append(book + " : " + price + "<br/>");
+                    
+                    // 더해서
+                    total += parseInt(price);
+                }); 
+                
+                // id가 result인 요소의 안에 값을 출력하자.
+                $('#result').append(total);
+
+                // 그냥 JS로 구현 했을 때
+                // var sum = 0
+                // var chks = document.getElementsByName('chk')
+                // for (var i = 0; i < chks.length; i++) {
+                //     if (chks[i].checked) {
+                //         sum = sum + parseInt(chks[i].value)
+                //     }
+                // }
+                // $("#result").html('내실 금액 : ' + sum);
+            })
+        })
+
+        
+    </script>
+
+</head>
+<body>
+    
+    <form id='signal'>
+        <div>
+            <span class='label'>User ID</span>
+            <input type='text' class='infobox' name='userid'>
+            <span class='error' hidden='' style='color:red;'>반드시 입력하세요.</span>
+        </div>
+        <input type='submit' class='submit' value='입력'>
+    </form>
+
+
+    <hr>
+
+    <fieldset style="width: 300px">
+        <legend>체크 여부 확인</legend>
+
+        <input type="checkbox" name="all" onclick="allChk(this.checked)">전체선택
+        <br>
+        <input type="checkbox" name="chk" value="20000"><b>python</b>
+        <br>
+        <input type="checkbox" name="chk" value="25000"><b>pandas</b>
+        <br>
+        <input type="checkbox" name="chk" value="30000"><b>django</b></input>
+        <br>
+
+        <input type="button" id="confirm" value="확인">
+        <br>
+
+        <span>선택한 책 가격</span>
+        <div id="result"></div>
+    </fieldset>
+
+</body>
+</html>

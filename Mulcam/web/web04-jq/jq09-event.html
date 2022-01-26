@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="resources/js/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        div{
+            width: 400px;
+            height: 200px;
+            border: 2px solid red;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        div p:first-child{
+            float: left;
+            border: 1px solid blue;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            line-height: 150px;
+
+        }
+        div p:last-child{
+            float: right;
+            border: 1px solid blue;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            line-height: 150px;
+        }
+    </style>
+    <script>
+        /*
+            이벤트 전파 : 각 요소가 서로 포함관계(중첩)인 경우
+                요소 중 하나에 이벤트가 발생하면
+                중첩된 요소들도 이벤트가 전파된다.
+
+            이벤트 전파 막기
+                - stopPropagation() : 이벤트 요소의 전파 막기
+                - preventDefault() : 이벤트에 의한 기본 동작 막기
+                - return false : 위의 기능 두개 모두 적용
+
+        */
+        $(function(){
+            $("a:eq(0)").click(function(e){
+                alert("a 클릭")
+                // e.stopPropagation(); // 이 뒤로 이벤트 전파가 안된다.(p클릭, div클릭)
+                // e.preventDefault(); // 이벤트 전파는 되면서 기존의 href의 동작이 안된다.
+                return false; // return은 이벤트 전파도 안되고 기존 동작도 안되게한다.
+            });
+
+            $("p").click(function(e){
+                alert("p 클릭")
+                // e.stopPropagation(); // 이 뒤로 이벤트 전파가 안된다.(div클릭)
+                e.preventDefault(); // 이벤트 전파는 되면서 기존의 href의 동작이 안된다.
+            });
+
+            $("div").click(function(){
+                alert("div 클릭")
+            });
+
+            // 이벤트를 엮어(bind)서 요소에 저장
+            /*
+            $("a:eq(1)").bind("mouseover mouseout", function(e){
+                if(e.type == "mouseover"){
+                    $(this).css('background-color', 'hotpink');
+
+                }
+                if(e.type == "mouseout"){
+                    $(this).css('background-color', '');
+                }
+            });
+            */
+            $("a:eq(1)").bind({
+                "mouseover":function(){
+                    $(this).css("color","gold");
+                },
+                "mouseout":function(){
+                    $(this).css("color","");
+                }
+            })
+
+            $("span").click(function(){
+                $("a:eq(1)").unbind();
+            })
+            
+            $('button').click(function(){
+                $('body').append("<p>새로 추가된 p</p>")
+            })
+
+            $("body").on("click","p",function(){
+                alert("새로 추가되는 요소도 이벤트 적용!")
+            })
+            // JS : addEventListener 사용하기!
+        });
+
+
+
+    </script>
+</head>
+<body>
+    
+    <span>unbind() : 이벤트 해제</span>
+    <div>
+        <p>
+            <a href='https://www.naver.com'>클릭!</a>
+        </p>
+        <p>클릭</p>
+    </div>
+
+    <div>
+        <p>
+            <a href="https://www.google.com">클릭!</a>
+        </p>
+        <p>클릭</p>
+    </div>
+
+
+    <button>요소 추가</button>
+</body>
+</html>
