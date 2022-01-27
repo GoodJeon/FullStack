@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        img{width: 150px; height: 150px; float: left;}
+        #menubox{position: relative;}
+        #menu{overflow: auto;}
+        .sel{width: 140px; height: 140px; border: 5px dotted red; position: absolute; left: 300px;}
+        button{width: 150px; height: 50px; margin-left: 300px;}
+    </style>
+    
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    
+    <script>
+        // 자기 실행 함수 , 뒤의 100은 0.1초 즉 100 milliseconds
+        // $(생성할요소).appendTo(target) = target의 자식 중 맨 뒤에 추가
+        // toggleClass() = 클래스를 부여했다 뺐었다하는 메소드
+
+        $(function(){
+            setInterval(function(){
+                var div = $("#menu");
+                $(".active").first().appendTo(div);
+            }, 100)
+
+            $("button").click(function(){
+                $('img').toggleClass('active');
+                if($('button').text() == 'start'){
+                    $('button').text('stop');
+                } else {
+                    $('button').text('start');
+                }
+            })
+        })
+    </script>
+
+</head>
+<body>
+    
+    <h1>SlotMachine</h1>
+
+    <div id='menubox'>
+        <div class='sel'></div>
+
+        <div id='menu'>
+            <img src="resources/imgs/img01.png" alt="img01">
+            <img src="resources/imgs/img02.png" alt="img02">
+            <img src="resources/imgs/img03.png" alt="img03">
+            <img src="resources/imgs/img04.png" alt="img04">
+        </div>
+    
+        <button>start</button>
+    </div>
+
+
+
+</body>
+</html>

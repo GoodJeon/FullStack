@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        div{border: 1px solid red;}
+        .prepend{border: 1px dotted green;}
+        .append{border: 1px dotted blue;}
+    </style>
+
+
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+
+    <script>
+        // prepend() = 자식 요소들 중에 가장 앞에 추가
+        // append() = 자식 요소들 중에 가장 뒤에 추가
+        $(function(){
+            var cnt = 0;
+            $('button:eq(0)').click(function(){
+                $("div").prepend($("<p>").addClass("prepend").text("prepend" + (++cnt)))
+            })
+            $('button:eq(1)').click(function(){
+                $("div").append($("<p>").addClass("append").text("append" + (++cnt)))
+            })
+            $('button:eq(2)').click(function(){
+                $("div").html("<b>html 요소를 바꾼다.</b>")
+            })
+            $('button:eq(3)').click(function(){
+                $("div").text("<b>text 요소를 바꾼다.</b>")
+            })
+
+        })
+    </script>
+</head>
+<body>
+    
+    <button>prepend</button>
+    <button>append</button>
+    <button>html</button>
+    <button>txt</button>
+
+    <div>
+        <p>내부 삽입1</p>
+        <p>내부 삽입2</p>
+    </div>
+
+</body>
+</html>

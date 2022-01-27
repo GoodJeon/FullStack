@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box{border: 2px solid red;}
+    #menu{background-color: skyblue; text-align: right;}
+    a{text-decoration: none; font-size: 20px;}
+    #menu div{display: inline-block; margin-right: 10px;}
+</style>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+
+<script>
+    // ('찾을 요소').wrap($class명) = wrap()은 부모요소 생성
+    $(function(){
+        var $box = $("<div>").addClass("box");
+        // $box라는 변수에 클래스가 box인 div 태그 객체를 저장
+        $(".sub_menu:first").wrap($box); 
+        // class가 sub_menu인 것 중 첫번째를 찾아서 $box로 wrap을 해주면 class가 box인 부모요소 생성
+
+        // unwrap() = 부모 요소를 제거
+        $(".sub_menu").click(function(){
+            $(".sub_menu").each(function(){
+                if($(this).parent().is(".box")){
+                    $(this).unwrap(".box")
+                }
+            })
+            $(this).wrap($box);
+        })
+
+        // wrapInner() 자식요소를 span태그로 포장해주세요.
+        $("a").wrapInner('<span></span>')
+
+        // pre 태그를 찾아서 전부 b태그로 감싸주세요.
+        $("pre").wrapAll("<b></b>")
+    })
+</script>
+
+<body>
+    
+    <div id='menu'>
+        <div class='sub_menu'>
+            <a href="#"><span>스포츠</span></a>
+        </div>
+        <div class='sub_menu'>
+            <a href="#">연예</a>
+        </div>
+        <div class='sub_menu'>
+            <a href="#">경제</a>
+        </div>
+        <div class='sub_menu'>
+            <a href="#">정치</a>
+        </div>
+        <div class='sub_menu'>
+            <a href="#">사회</a>
+        </div>
+    </div>
+
+    <pre>1</pre>
+    <pre>2</pre>
+    <pre>3</pre>
+
+</body>
+</html>
