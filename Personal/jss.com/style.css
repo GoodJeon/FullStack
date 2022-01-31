@@ -165,7 +165,7 @@ footer{
 }
 
 .t_b:first-child{
-    margin-left: 0px;
+    margin-left: -30px;
 }
 body{
     font-weight: 400;
@@ -179,4 +179,114 @@ div{
 html{
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-text-size-adjust: 100%;
+}
+
+
+
+
+
+
+main{
+    font-family: 'Nanum Gothic', sans-serif; 
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+}
+
+.main-banner{
+    position: relative;
+}
+
+.gg-inventory{
+    min-width: 1200px;
+    height: 300px;
+    background: url(https://jasoseol.com/assets/index/75_blue-0bc98bad46bcbe933d9b00cebb69f11ecca9bcfd5a425c7ac43e11cc71c45e88.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+
+
+}
+
+.main-banner .banner-container .clear-background{
+    background: #fff;
+}
+.main-banner .banner-container{
+    position: relative;
+    height: 100%;
+
+}
+
+.main-banner .banner-container .main-banner-ggs{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+
+.main-banner .banner-container .main-banner-ggs a img{
+    display: inline-block;
+    width: 100%;
+    height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-banner .banner-container .controller-container{
+    position: relative;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.main-banner .banner-container .controller-container .banner-controller{
+    position: absolute;
+    width: 104px;
+    height: 40px;
+    border-radius: 22px;
+    z-index: 1000;
+    bottom: 20px;
+    right: 0;
+    display: flex;
+}
+
+.main-banner .banner-container .controller-container .banner-controller .background{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #fff;
+    opacity: 0.9;
+    z-index: 1;
+    border-radius: 22px;
+}
+
+.main-banner .banner-container .controller-container .banner-controller .controller-info{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777777;
+    font-size: 15px;
+    z-index: 2;
+}
+
+.main-banner .banner-container .controller-container .banner-controller .controller-info img{
+    margin-top: 1px;
+    width: 6px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.main-banner .banner-container .controller-container .banner-controller .controller-info span{
+    width: 60px;
+    text-align: center;
+    margin-top: 1px;
 }
