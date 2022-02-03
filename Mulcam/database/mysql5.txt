@@ -1,0 +1,10 @@
+use employees;
+
+
+--문제. last_name이 Haraldson 인 사원의 월급 출력
+select salary
+from salaries
+where emp_no in
+	(select emp_no
+	from employees
+	where last_name = 'Haraldson');

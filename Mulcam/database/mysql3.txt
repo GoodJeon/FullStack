@@ -1,0 +1,93 @@
+use employees;
+
+
+-- 현재 근무하고 있는 직원들의 전체 신상 명세
+employees 
+dept_emp
+두 테이블을 연결하고 싶다.
+-- select * from employees;
+-- select * from dept_emp;
+이게 같이 나오게 하고 싶은거
+
+
+select *
+from employees emp inner join dept_emp de on emp.emp_no = de.emp_no
+limit 10;
+
+
+select *
+from employees emp inner join dept_emp de on emp.emp_no = de.emp_no
+where de.to_date = '9999-01-01'
+limit 10;
+
+
+
+-- 현재 근무하고 있는 직원들의 이름(first_name)과 부서(dept_no) 출력
+select first_name, dept_no
+from employees emp inner join dept_emp de on emp.emp_no = de.emp_no
+limit 100;
+
+
+-- 전체 직원들의 이름과 직업 출력
+select first_name, title
+from employees emp inner join titles tt on emp.emp_no = tt.emp_no
+limit 100;
+
+select first_name, title
+from employees emp join titles tt on emp.emp_no = tt.emp_no
+limit 100;
+
+* join을 써주면 inner join과 똑같은 결과가 출력
+
+
+select *
+from employees join titles using(emp_no)
+limit 100;
+* 컬럼의 이름이 같은 경우 using(컬럼명)을 사용해도 된다.
+* 이 경우 연결 시 사용되는 컬럼이 1개만 나온다.(join 사용시 연결컬럼 2개다 나옴)
+
+
+select * from employees natural join dept_emp where dept_emp.to_date = '9999-01-01' limit 10;
+
+select *
+from employees emp natural join titles tt
+limit 100;
+* natural join을 사용했을 때 using을 사용했을때와 똑같이 결과가 나온다.
+* 즉, 어차피 연결될 수 있는 컬럼이 하나밖에 없을 때 사용하는 join이 natural join이다.
+
+
+
+
+
+select count(*)
+from employees join titles using(emp_no);
+
+select count(*)
+from employees join titles;
+* cartesian 곱.
+
+
+select count(*)
+from employees cross join titles;
+* cartesian 곱
+
+
+--문제. 현재 근무하고 있는 (9999-01-01) 직원들의 이름과 월급 출력
+select first_name, salary 
+from employees natural join salaries
+where to_date = '9999-01-01'
+limit 100;
+
+
+
+--문제. 부서 이름과 관리자 이름을 출력
+select dept_name, first_name
+from employees natural join departments natural join dept_manager
+where to_date = '9999-01-01'
+limit 100;
+
+
+select dept_name, first_name
+from departments join dept_manager using(dept_no)
+join employees using(emp_no)
+where to_date = '9999-01-01';

@@ -1,0 +1,219 @@
+mysql employee(예제)데이터는 사용할 시에 꼭 라이센스 확인해보자.
+
+
+cd test_db-master
+dir
+
+
+
+mysql -u root -p
+
+----예제 데이터 소스
+source employees.sql
+
+
+show databases;
+
+use employees;
+
+show tables;
+
+desc employees;
+
+select * from employees;
+
+----일시정지  ctrl+c
+
+select count(*) from employees;
+
+
+----limit (개수 제한걸기)
+select emp_no, first_name, last_name
+from employees
+limit 10;
+
+
+select * 
+from employees
+limit 1000;
+
+
+---where 절로 조건걸기
+select *
+from employees
+where hire_date >= '2000-01-01'
+limit 10;
+
+select count(*)
+from salaries;
+
+
+select *
+from salaries
+limit 100;
+
+
+select *
+from salaries
+where salary >= 150000
+limit 10;
+
+
+-- 문제. 월급이 100000 보다 크고 150000보다 작거나 같은
+-- 모든 데이터를 출력하자.
+select * 
+from salaries
+where salary > 100000 and salary <= 150000
+limit 10;
+
+
+-- 문제 . 1965년도에 태어난 사원의 이름(first_name)과 생일을 출력하자.
+select first_name, birth_date
+from employees
+where birth_date >= '1965-01-01' and birth_date <= '1965-12-31'
+limit 10;
+
+
+
+
+
+-- ORDER BY(정렬)
+select *
+from salaries
+order by salary
+limit 1000;
+
+-- 오름차순 (asc) 디폴트값임.
+select *
+from salaries
+order by salary asc
+limit 1000;
+
+-- 내림차순 (desc)
+select *
+from salaries
+order by salary desc
+limit 10;
+
+
+-- 늦게 취업한 사람 순서대로, 나이 순으로
+select *
+from employees
+order by hire_date desc, birth_date
+limit 100;
+
+-- 나이 순서대로, 늦게 취업한 사람 순서대로
+select *
+from employees
+order by birth_date, hire_date desc
+limit 10;
+
+
+
+
+select title
+from titles
+limit 1000;
+
+----group by
+select title 
+from titles
+group by title;
+
+
+select title, count(*)
+from titles
+group by title;
+
+-- group by 하지 않은 데이터는 출력 불가
+select title, emp_no
+from titles
+group by title;
+
+
+select emp_no, salary
+from salaries
+group by emp_no;
+
+
+
+
+-- 집계 함수에 조건 사용 시, where 대신 having으로 조건 사용
+select count(*)
+from employees
+where gender = 'M';
+
+
+-- 부서 별 사원 수
+select dept_no, count(dept_no)
+from dept_emp
+group by dept_no;
+
+-- 부서 별 사원 수가 5만명 이상인 부서만 출력
+select dept_no, count(dept_no)
+from dept_emp
+group by dept_no
+having count(dept_no) >= 50000;
+
+
+
+
+
+
+create database multi;
+use multi;
+create table students(
+ id int,
+ name varchar(100),
+ phone char(13),
+ address varchar(1000),
+ job varchar(100)
+);
+
+desc students;
+
+
+-- 오토커밋 풀기
+set autocommit = 0;
+
+
+insert into students
+values (1, 'jeon-dj', '010-1234-5678', 'anyang', 'ai');
+
+insert into students(id, name, phone)
+values (2, 'kim-sd', '02-222-2222');
+
+select * from students;
+
+commit; (현재 상태를 데이터베이스 서버에 저장해라)
+
+
+update students
+set phone = '010-2222-2222',
+address = 'suwon',
+job = 'engineer'
+where id = 2;
+
+
+delete from students
+where id = 1;
+
+rollback; (중간에 작업이 잘못되었으니 가장 마지막 commit 상태로 돌아가라)
+
+
+
+
+
+
+use mysql;
+
+grant all privileges on *.* to 'root'@'localhost' with grant option;
+
+
+-- % : 어디서든 접근 가능
+create user 'root'@'%' identified by '1234';
+grant all privileges on *.* to 'root'@'%' with grant option;
+
+
+flush privileges;
+commit;

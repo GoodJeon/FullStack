@@ -1,0 +1,57 @@
+* \! cls; <-- mysql 쉘에서 프롬프트창 클리어
+
+use multi;
+
+create table join_a(
+ aa int,
+ ab char(3)
+)
+create table join_b(
+  bb int,
+  ab char(3)
+)
+
+
+
+insert into join_a
+values(1, 'aaa');
+
+insert into join_a
+values(2, 'bbb');
+
+insert into join_a
+values(3, 'ccc');
+
+select * from join_a;
+
+
+** mysql bulk insert 찾아보기
+
+
+
+insert into join_b
+values(4, 'aaa');
+
+insert into join_b
+values(5, 'bbb');
+
+insert into join_b
+values(6, 'ccc');
+
+insert into join_a
+values(7, 'ddd');
+
+insert into join_b
+values(8, 'eee');
+
+
+
+--left outer
+select *
+from join_a left join join_b using(ab);
+
+--right outer
+select *
+from join_a right join join_b using(ab);
+
+** 자기가 없는 부분들은 null 값으로 채워짐
