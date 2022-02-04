@@ -1,4 +1,4 @@
-"""hello URL Configuration
+"""tags URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -19,8 +19,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index), # path 쓰고 ,(콤마) 무조건 찍자!
-    path('hello01/', include('hello01.urls')),
-    path('test/', views.test),
-    path('my/', views.my),
+    path('', views.index),
+    path('var/', include('var.urls')),
+    path('statics/', include('statics.urls'))
 ]

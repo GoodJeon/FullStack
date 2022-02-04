@@ -1,4 +1,4 @@
-"""hello URL Configuration
+"""dbtest URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -14,13 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index), # path 쓰고 ,(콤마) 무조건 찍자!
-    path('hello01/', include('hello01.urls')),
-    path('test/', views.test),
-    path('my/', views.my),
+    path('', views.index, name='index'),
 ]
