@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>Update</h1>
+
+    <form action="/updateres/" method="post">{% csrf_token %}
+        <input type="hidden" name="id" value="{{dto.id}}" />
+        <!-- 글 번호 값 안보이게-->
+        <table border="1">
+            <tr>
+                <th>작성자</th>
+                <td><input type="text" name="myname" value="{{dto.myname}}" readonly /></td>
+            </tr>
+            <tr>
+                <th>제목</th>
+                <td><input type="text" name="mytitle" value="{{dto.mytitle}}"/></td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td><textarea rows="10" cols="60" name="mycontent">{{dto.mycontent}}</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="button" value="취소" onclick="">
+                    <input type="submit" value="수정">
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+
+</body>
+</html>
