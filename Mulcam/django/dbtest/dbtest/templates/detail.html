@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>Detail</h1>
+
+    <table border="1">
+        <tr>
+            <th>작성자</th>
+            <td><input type="text" value="{{dto.myname}}" readonly></td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td><input type="text" value="{{dto.mytitle}}" readonly></td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td><textarea rows="10" cols="60" readonly>{{dto.mycontent}}</textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">
+                <input type="button" value="목록" onclick="">
+                <input type="button" value="수정" onclick="">
+                <input type="button" value="삭제" onclick="">
+            </td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
