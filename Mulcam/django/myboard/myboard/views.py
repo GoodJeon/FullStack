@@ -1,9 +1,17 @@
 from django.shortcuts import render, redirect
-from .models import MyBoard
+from .models import MyBoard, MyMember
 from django.utils import timezone
+from django.core.paginator import Paginator
+from django.contrib.auth.hashers import make_password, check_password
 
 def index(request):
-    return render(request, 'index.html', {'list': MyBoard.objects.all().order_by('-id')})
+    myboard = MyBoard.objects.all().order_by('-id')
+    paginator = Paginator(myboard, 5)
+    page_num = request.GET.get('page','1')
+
+    page_obj = paginator.get_page(page_num)
+
+    return render(request, 'index.html', {'list': page_obj})
 
 def insert_form(request):
     return render(request, 'insert.html')
@@ -52,3 +60,38 @@ def delete(request, id):
         return redirect('index')
     else:
         return redirect('detail/'+id)
+
+
+def register(request):
+    if request.method == 'GET':
+        return render(request, 'register.html')
+    elif request.method == 'POST':
+        myname = request.POST['myname']
+        mypassword = request.POST['mypassword']
+        myemail = request.POST['myemail']
+
+        mymember = MyMember(myname=myname, mypassword=make_password(mypassword), myemail=myemail)
+
+        mymember.save()
+
+        return redirect('/')
+    return redirect('/')
+
+def login(request):
+    if request.method == "GET":
+        return render(request, 'login.html')
+    else:
+        myname = request.POST['myname']
+        mypassword = request.POST['mypassword']
+
+        mymember = MyMember.objects.get(myname=myname)
+
+        if check_password(mypassword, mymember.mypassword):
+            request.session['myname'] = mymember.myname
+            return redirect('/')
+        else:
+            return redirect('/login')
+
+def logout(request):
+    del request.session['myname']
+    return redirect('/')

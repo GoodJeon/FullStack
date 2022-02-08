@@ -26,4 +26,7 @@ urlpatterns = [
     path('updateform/<int:id>', views.update_form, name='updateform'),
     path('updateres/', views.update_res),
     path('delete/<int:id>', views.delete),
+    path('register/', views.register),
+    path('login/', views.login),
+    path('logout/', views.logout),
 ]

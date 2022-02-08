@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <h1>Hello, {{ request.session.name | default:"Django" }} with mysql</h1>
+    <h1>Hello, {{ request.session.myname | default:"Django" }} with mysql</h1>
 
     <table border="1">
         <col width="50">
@@ -40,5 +40,35 @@
         </tr>
     </table>
 
+    <a href="?page=1">처음</a>
+    {% if list.has_previous %}
+        <a href="?page={{ list.previous_page_number }}">이전</a>
+    {% else %}
+        <a>이전</a>
+    {% endif %}
+
+    {% for page_num in list.paginator.page_range %}
+        {% if page_num == list.number %}
+            <b>{{ page_num }}</b>
+        {% else %}
+            <a href="?page={{ page_num }}">{{ page_num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if list.has_next %}
+        <a href="?page={{ list.next_page_number }}">다음</a>
+    {% else %}
+        <a>다음</a>
+    {% endif %}
+
+    <a href="?page={{ list.paginator.num_pages }}">끝</a>
+    <br>
+    <a href="register/">회원가입</a>
+    <br>
+    {% if not request.session.myname %}
+    <a href="login/">로그인</a>
+    {% else %}
+    <a href="logout/">로그아웃</a>
+    {% endif %}
 </body>
 </html>
