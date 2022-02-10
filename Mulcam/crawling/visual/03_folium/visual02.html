@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3176a2ab17624cf0bdb01ea9c9d05252 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_3176a2ab17624cf0bdb01ea9c9d05252" ></div>
+        
+</body>
+<script>    
+    
+            var map_3176a2ab17624cf0bdb01ea9c9d05252 = L.map(
+                "map_3176a2ab17624cf0bdb01ea9c9d05252",
+                {
+                    center: [37.55531990811339, 126.91638769586095],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 18,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b520de9c71d14894b21079827d82bc7d = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_3176a2ab17624cf0bdb01ea9c9d05252);
+        
+    
+            var marker_98cf11b174ff4205afa677a8792e7cf7 = L.marker(
+                [37.55488703498594, 126.91640276313012],
+                {}
+            ).addTo(map_3176a2ab17624cf0bdb01ea9c9d05252);
+        
+    
+        var popup_9b278a69297e4d6885eb05e1f49beeec = L.popup({"maxWidth": 100});
+
+        
+            var html_e35f23239d7c49528fa0de7c2eaa8b8e = $(`<div id="html_e35f23239d7c49528fa0de7c2eaa8b8e" style="width: 100.0%; height: 100.0%;">멘야준</div>`)[0];
+            popup_9b278a69297e4d6885eb05e1f49beeec.setContent(html_e35f23239d7c49528fa0de7c2eaa8b8e);
+        
+
+        marker_98cf11b174ff4205afa677a8792e7cf7.bindPopup(popup_9b278a69297e4d6885eb05e1f49beeec)
+        ;
+
+        
+    
+</script>
