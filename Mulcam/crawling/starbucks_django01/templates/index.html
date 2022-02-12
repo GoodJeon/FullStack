@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            $('button').click(function(){
+                $.ajax({
+                    url: "starbucks/",
+                    dataType: "json",
+                    success:function(msg){
+                        // console.log(msg);
+                        // {'list': [{'s_name':'', 'tel':'',...}, {}, {}, ...]}
+                        var list = msg['list'];
+                        var $table = $("table");
+                        var keys = Object.keys(list[0]);
+
+                        for (var i = 0; i < list.length; i++) {
+                            var $tr = $("<tr>")
+                            for (var j = 0; j < keys.length; j++) {
+                                var $td = $("<td>").html(list[i][keys[j]])
+                                $tr.append($td)
+                            }
+                            $table.append($tr)
+                        }
+
+                    }
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <h1>Starbucks</h1>
+
+    <button>click me!</button>
+    <table border="1"></table>
+
+</body>
+</html>
