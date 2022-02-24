@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = 'https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    <link rel="stylesheet" href="../static/css/sex.css" type="text/css">
+    <script>
+        $(document).ready(function() {
+            $('.testbt1').click(function(){
+                $('.test').attr('src','../static/images/female2.png').stop(true,true).hide().fadeIn(2000)
+            });
+            $('.testbt2').click(function(){
+                $('.test').attr('src','../static/images/female1.png').stop(true,true).hide().fadeIn(2000)
+            });
+            })
+    </script>
+</head>
+<body>
+
+    <!-- <img src="{% static 'images/female1.png' %}" width="150px" height="150px"> -->
+    <img class='test' src="../static/images/female1.png" width="150px" height="200px">
+    <button type="button" class="testbt1 bt">{ opacity: 0 }</button>
+    <button type="button" class="testbt2 bt">{ opacity: 0.5 }</button>
+
+</body>
+</html>
