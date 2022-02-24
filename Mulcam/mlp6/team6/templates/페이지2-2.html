@@ -11,15 +11,38 @@
     <link rel="stylesheet" href="{% static 'css/page2-2.css' %}" type="text/css">
     <script>
     $(function (){
+      $('div > img').css('display', 'none');
+      $('div > img').fadeIn(1000);
       $(":button").css({"background-color": "yellow","border":"1px solid #B9eeff","border-radius":"5px"});
       $("#whatStore").on('click',function(){
         $("#check").click();
       })
+      $("#guselect").change(function() {
+        var gu = $(this).val();
+        $.ajax({
+            url:'/guSang/',
+            data : {'gu':gu},
+            dataType:"json",
+            success: function(msg) {
+                $('#sangcon').remove();
+                var obj = JSON.parse(msg)
+                var sang = obj.sangG
+                console.log(sang)
+                $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(0).text('상권코드선택'));
+                for(var i=0; i< sang.length; i++){
+                    console.log(sang[1])
+                    $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
+                };
+                $("#DS").append($sangcon);
+            }
+        });
+      });
+
       $('#gogo').on('click', function() {
         $.ajax({
           url: '/comeTodata/',
           type:"POST",
-          data: {'gu':$("#guselect option:selected").val()},
+          data: {'gu':$("#guselect option:selected").val(),'sang':$("#sangcon option:selected").val(),'gage':$("#whatStore").val()},
           dataType:'json',
           success: function(msg){
                 alert("별은 바라보는 자에게 빛을 준다\n-드래곤 라자")
@@ -28,6 +51,8 @@
                 //json 바꾸기 위해 parse
                 var obj = JSON.parse(msg)
                 var gu = obj.gu
+                var sang = obj.sang
+                var gage = obj.gage
                 var m = obj.m
                 var f = obj.f
                 var mon = obj.mon
@@ -49,7 +74,8 @@
                 var t4 = obj.t4
                 var t5 = obj.t5
                 var t6 = obj.t6
-                $('#writeplace').html(gu)
+                var jumpo = obj.jumpo
+                $('#writeplace').html(gu+sang+gage)
                 $('#gu').val(gu)
 
 
@@ -251,10 +277,26 @@
                       },
                     })
                 })
+                $('#jumposu').on('click',function(){
+                $("#showChart").remove();
+                $("#chart").append("<canvas id='showChart'></canvas>");
+                var ctx6 = document.getElementById("showChart");
+                var myChart = new Chart(ctx6, {
+                  type: 'line',
+                  data: {
+                    labels: ['2020년 4분기','2021년 1분기','2021년 2분기','2021년 3분기' ],
+                    datasets: [{
+                      label: '분기별점포수 변동',
+                      data: [jumpo[3],jumpo[0],jumpo[1],jumpo[2]],
+                      borderColor: 'rgb(75, 192, 192)',
+                        }]
+                      }
+                    })
+                })
 
           }
-          ,error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          ,error:function(){
+            alert('현재 입력하신 상권에는 찾는 업종이 없습니다. 선발대가 되보실래요?');
           }
         })
       });
@@ -268,25 +310,24 @@
       })
     })
 
-
     function setChildValue(name){
-      document.getElementById('whatStore').value = name;
+        document.getElementById('whatStore').value=name;
     }
-
-
-    </script>
-  
+   </script>
+   
 
 </head>
 <body>
     <form>
-        <select id="guselect">
-        <option value="구선택">구선택</option>
-        {% for i in guList %}
-            <option id='guname' value="{{i}}">{{i}}</option>
-        {% endfor %}
+        <div id="DS">
+            <select id="guselect">
+            <option value="구선택">구선택</option>
+            {% for i in guList %}
+                <option id='guname' value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </div>
         </select>
-        <input type="text" id='whatStore' readonly="readonly" value=''/>
+        <input type="text" id='whatStore' readonly="readonly"/>
         <input type="button" value="업종입력" id="check"/>
         <input type="button" value="상가 확인" id="gogo">
         <div id="yourfind">
@@ -303,6 +344,9 @@
         </div>
         <div id="sex">
           <img src="{% static 'images/sex.png' %}" width="250px" height="110px">
+        </div>
+        <div id="jumposu">
+            <img src="{% static 'images/jumpo.png' %}" width="250px" height="110px">
         </div>
 
         <div id="chart">

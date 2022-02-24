@@ -25,10 +25,9 @@
                 for (var j=0; j< list[i].length; j++){
                     var val = list[i][j]
                     var td =document.createElement('td');
-                    td.setAttribute('value',list[i][j]);
-                    td.setAttribute('onclick', "sendChildValue(this.innerText)")
-                    td.setAttribute('onmouseover', 'this.style.background="blue", this.style.cursor="pointer"')
-                    td.setAttribute('onmouseout', 'this.style.background="white"')
+                    td.setAttribute('onclick','sendChildValue(this.innerText)');
+                    td.setAttribute('onmouseover','this.style.background="skyblue",this.style.cursor="pointer"');
+                    td.setAttribute('onmouseout','this.style.background="white"')
                     tr.appendChild(td);
                     td.innerHTML = list[i][j];
                 }
@@ -38,7 +37,6 @@
             opener.setChildValue(name);
             window.close();
         }
-
 
 
     </script>
