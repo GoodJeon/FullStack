@@ -1,3 +1,20 @@
+/* 배민 한나프로체 */
+@font-face{
+    font-family: 'Baemin';
+    src: url('../font/BMHANNAPro.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고도 마음체 */
+@font-face{
+    font-family: 'GodoM';
+    src: url('../font/GodoM.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고양시 고양체 */
 @font-face{
     font-family: 'Goyang';
     src: url('../font/Goyang.ttf');
@@ -6,34 +23,62 @@
 
 }
 
-body{
-    font-family: 'Goyang';
+*{
+    margin:0;
+    padding:0;
+}
+
+html{
     width:100%;
-    height:80px;
+    height:100%;
+}
+
+
+body{
+    font-family: 'GodoM';
+    width:100%;
+    height:100%;
 }
 
 header{
     text-align: center;
+    width:100%;
+    height:12%;
     background-color: black;
     color: #ffffff;
 }
 
+h1{
+    font-size: 40px;
+    line-height: 70px;
+}
+
 main{
     width:100%;
-    height: 570px;
+    height: 81%;
     text-align: center;    
-    background-color: #cccccc;
+    background-color: whitesmoke;
 }
 
 footer{
+    font-family: 'Goyang';
     width: 100%;
-    height:30px;
-    text-align: left;
+    height:7%;
+    text-align: center;
     background-color: #e3dfd7;
+    display:table;
+    font-size: large;
 }
 
+footer > span{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
 .locName{
-    height: 100px;
+    width: 100%;
+    height: 73px;
     text-align: center;
     font-size: 60px;
 }
@@ -41,7 +86,7 @@ footer{
 .mapArea{
     margin-left: 10%;
     margin-right: 10%;
-    height: 100
+    height:100%;
 }
 #paper{
     margin-left: 25%;

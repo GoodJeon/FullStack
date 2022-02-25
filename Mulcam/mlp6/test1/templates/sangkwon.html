@@ -7,34 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        div{
-            border: 1px solid blue;
-            margin-top: 1px;
-        }
-        .title{
-            text-align: center;
-        }
-        .main{
-            height: 550px;
-            margin-top: 50px;
-        }
-        .chart{
-            margin-left: 5%;
-            margin-right: 5%;
-            height: 99%;
-        }
-        table{
-            border: 1px solid #bcbcbc;
-            width: 100%;
-            height: 100%;
-        }
-        
-        td{
-            border: 1px solid #bcbcbc;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/sangkwon.css' %}" type="text/css">
     <script>
         //hover 색변환, 누르면 해당 이름 send하면서 다음 페이지
         function clicks(val){
@@ -55,7 +28,7 @@
 
         function mouseon(val){
             if (val.innerText!=''){
-                val.style.background='blue'
+                val.style.background='#999999'
             }
         }
         function mouseout(val){
@@ -64,28 +37,45 @@
     </script>
 </head>
 <body>
-   <div class="title">
+    <header>
         <h1>{{gu}} 상권 선택</h1>
-   </div>
-   <form method="post" name="frm">
-        <div class="main">
-            <div class="chart">
-                <table>
-                    {% for i in v|ranges %}
-                    <tr>
-                        {% for j in h|ranges %}
-                        <td onclick="clicks(this)" onmouseover="mouseon(this)" onmouseout="mouseout(this)">
-                            {% pick_data sklist h i j %}
-                        </td>
+    </header>
+    <main>
+        <form method="post" name="frm">
+            <div class="main">
+                <div class="chart">
+                    <table>
+                        {% for i in v|ranges %}
+                        <tr>
+                            {% for j in h|ranges %}
+                            <td class='w-btn-neon2' onclick="clicks(this)" >
+                                {% pick_data sklist h i j %}
+                            </td>
+                            {% endfor %}
+                        </tr>
                         {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </table>
+                    </table>
+                </div>
             </div>
-        </div>
-        <input type="text" name="wheregu" value="{{wheregu}}" style="display:none">
-        <input type="text" name="bt" value="{{bt}}" style="display:none">
-        <input type="text" name="wheresk" value="" style="display:none">
-    </form>
+            <input type="text" name="wheregu" value="{{wheregu}}" style="display:none">
+            <input type="text" name="bt" value="{{bt}}" style="display:none">
+            <input type="text" name="wheresk" value="" style="display:none">
+        </form>
+    </main>
+    <footer>
+        <span>
+            <b>
+            Copyright ⓒ 2022. OB상조 All rights reserved   
+            </b>
+        </span>
+        <span>
+            <b>Designed by 김화신 이성길 이종호 전동준 조완제  </b>
+        </span>
+        <span>
+            <b>
+            Project Source : <a href="https://github.com/GoodJeon/MPJ_team6">https://github.com/GoodJeon/MPJ_team6</a>
+            </b> 
+        </span>
+    </footer>
 </body>
 </html>

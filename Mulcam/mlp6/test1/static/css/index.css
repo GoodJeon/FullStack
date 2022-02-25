@@ -1,3 +1,22 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+/* 배민 한나프로체 */
+@font-face{
+    font-family: 'Baemin';
+    src: url('../font/BMHANNAPro.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고도 마음체 */
+@font-face{
+    font-family: 'GodoM';
+    src: url('../font/GodoM.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고양시 고양체 */
 @font-face{
     font-family: 'Goyang';
     src: url('../font/Goyang.ttf');
@@ -5,20 +24,34 @@
     font-style: normal;
 
 }
+
+*{
+    margin:0;
+    padding:0;
+}
+
+html{
+    width:100%;
+    height:100%;
+}
+
+
 body{
-    font-family: 'Goyang';
-    
+    font-family: 'GodoM';
+    width:100%;
+    height:100%;
 }
 
 
 header{
     text-align: center;
     width:100%;
-    height:80px;
+    height:12%;
     background-color: black;
     color: #ffffff;
     
 }
+
 h1{
     font-size: 40px;
     line-height: 70px;
@@ -26,12 +59,24 @@ h1{
 
 main{
     width:100%;
-    height: 570px;
+    height: 81%;
     text-align: center;
-    
 }
     
+footer{
+    font-family: 'Goyang';
+    width: 100%;
+    height:7%;
+    text-align: center;
+    background-color: #e3dfd7;
+    display:table;
+    font-size: large;
+}
 
+footer > span{
+    display: table-cell;
+    vertical-align: middle;
+}
 
 .m-bt1{
     width: 50%;
@@ -43,20 +88,21 @@ main{
 }
 .p-bt1{
     width: 60%;
-    height: 370px;
+    height: 60%;
     float:right;
     /* border: 1px solid black; */
-    margin-top: 100px;
+    margin-top: 12%;
 }
 .p-bt2{
     width: 60%;
-    height: 370px;
+    height: 60%;
     float: left;
     /* border: 1px solid black; */
-    margin-top: 100px;
+    margin-top: 12%;
 }
 .image{
-    height: 300px;
+    width:100%;
+    height:100%;
 }
 .image img{
     width: 100%;
@@ -68,9 +114,3 @@ main{
     text-align: center;
 }
 
-footer{
-    width: 100%;
-    height:30px;
-    text-align: left;
-    background-color: #e3dfd7;
-}
