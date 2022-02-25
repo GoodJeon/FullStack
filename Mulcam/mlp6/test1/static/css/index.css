@@ -1,0 +1,76 @@
+@font-face{
+    font-family: 'Goyang';
+    src: url('../font/Goyang.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+body{
+    font-family: 'Goyang';
+    
+}
+
+
+header{
+    text-align: center;
+    width:100%;
+    height:80px;
+    background-color: black;
+    color: #ffffff;
+    
+}
+h1{
+    font-size: 40px;
+    line-height: 70px;
+}
+
+main{
+    width:100%;
+    height: 570px;
+    text-align: center;
+    
+}
+    
+
+
+.m-bt1{
+    width: 50%;
+    float: left;
+}
+.m-bt2{
+    width: 50%;
+    float: right;
+}
+.p-bt1{
+    width: 60%;
+    height: 370px;
+    float:right;
+    /* border: 1px solid black; */
+    margin-top: 100px;
+}
+.p-bt2{
+    width: 60%;
+    height: 370px;
+    float: left;
+    /* border: 1px solid black; */
+    margin-top: 100px;
+}
+.image{
+    height: 300px;
+}
+.image img{
+    width: 100%;
+    height: 300px;
+}
+.txt{
+    /* height:70px; */
+    font-size: larger;
+    text-align: center;
+}
+
+footer{
+    width: 100%;
+    height:30px;
+    text-align: left;
+    background-color: #e3dfd7;
+}

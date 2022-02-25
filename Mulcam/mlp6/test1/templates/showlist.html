@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    
     <script>
         var list = [
                     ['커피-음료', '슈퍼마켓', 'PC방', '스포츠클럽', '패스트푸드점', '노래방', '안경', '스포츠 강습','핸드폰', '한의원'],
@@ -13,21 +14,27 @@
                     ['가방', '네일숍', '전자상거래업', '운동/경기용품', '미곡판매','가전제품수리', '철물점', '의료기기', '완구', '애완동물'],
                     [ '고시원', '자전거 및 기타운송장비','부동산중개업']
                    ];
+        var svlist = "{{ svlist|join:',' }}"
         window.onload = function(){
             var table = document.createElement('table');
             var tableplace = document.getElementById('here');
             tableplace.appendChild(table);
             table.border=1;
-
+            alert(svlist)
             for (var i=0; i< list.length; i++){
                 var tr = document.createElement('tr');
                 table.appendChild(tr);
                 for (var j=0; j< list[i].length; j++){
                     var val = list[i][j]
                     var td =document.createElement('td');
+                    if (svlist.indexOf(val) == '-1'){
+                        td.style.backgroundColor='#900'
+                    } else{
+                        td.setAttribute('onmouseover','this.style.cursor="pointer"');
+                    }
+
+                    // console.log(svlist)
                     td.setAttribute('onclick','sendChildValue(this.innerText)');
-                    td.setAttribute('onmouseover','this.style.background="skyblue",this.style.cursor="pointer"');
-                    td.setAttribute('onmouseout','this.style.background="white"')
                     tr.appendChild(td);
                     td.innerHTML = list[i][j];
                 }

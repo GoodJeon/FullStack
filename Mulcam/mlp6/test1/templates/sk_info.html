@@ -10,22 +10,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/sk_info.css' %}" type="text/css">
     <script>
+
+
+    // 기존 받은 데이터 나옴 
+    $( document ).ready(function() {
+      $("#guselect").val("{{wheregu}}").attr("selected", "selected")
+      var wheregu = $("#guselect").val()
+      $('#wheregu').attr('value',wheregu);
+      
+      
+
+      
+
+      $.ajax({
+            url:'/guSang/',
+            data : {'gu':$("#guselect option:selected").val()},
+            dataType:"json",
+            success: function(msg) {
+                // $('#sangcon').remove();
+                var obj = JSON.parse(msg)
+                var sang = obj.sangG
+                console.log(sang)
+                $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(wheresk).text(wheresk));
+                for(var i=0; i< sang.length; i++){
+                    console.log(sang[1])
+                    $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
+                };
+                $("#DS").append($sangcon);
+                $("#sangcon").val("{{wheresk}}").attr("selected", "selected")
+                var wheresk = $("#sangcon").val()
+                $('#wheresk').attr('value',wheresk);
+                $('#sangcon').change(function(){
+                  var wheresk=$(this).val()
+                  alert(wheresk)
+                  $('#wheresk').attr('value',wheresk); 
+                })
+            }
+        })
+
+        
+    })
+
+    // 
     $(function (){
-      var wheregu = '{{wheregu}}'
+      $('div > img').css('display', 'none');
+      $('div > img').fadeIn(1000);
       $(":button").css({"background-color": "yellow","border":"1px solid #B9eeff","border-radius":"5px"});
-      $("#whatStore").on('click',function(){
-        $("#check").click();
-      })
+
+      // 
       $("#guselect").change(function() {
         var gu = $(this).val();
         $.ajax({
-            url:'gu/sangkwon/storepage/guSang/',
+            url:'/guSang/',
             data : {'gu':gu},
             dataType:"json",
             success: function(msg) {
-                if ($('#DS').hasId('sangcon')===true) {
-                    $('$sangcon').remove();
-                }
+                $('#sangcon').remove();
                 var obj = JSON.parse(msg)
                 var sang = obj.sangG
                 console.log(sang)
@@ -35,25 +75,27 @@
                     $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
                 };
                 $("#DS").append($sangcon);
+                var wheregu = $("#guselect").val()
+                
             }
         });
       });
 
-    
-
       $('#gogo').on('click', function() {
         $.ajax({
-          url: 'gu/sangkwon/sk_info/',
+          url: '/comeTodata/',
           type:"POST",
           data: {'gu':$("#guselect option:selected").val(),'sang':$("#sangcon option:selected").val(),'gage':$("#whatStore").val()},
           dataType:'json',
           success: function(msg){
                 alert("별은 바라보는 자에게 빛을 준다\n-드래곤 라자")
                 //받은 내용 확인 console
-                console.log(msg)
+                // console.log(msg)
                 //json 바꾸기 위해 parse
                 var obj = JSON.parse(msg)
                 var gu = obj.gu
+                var sang = obj.sang
+                var gage = obj.gage
                 var m = obj.m
                 var f = obj.f
                 var mon = obj.mon
@@ -75,8 +117,12 @@
                 var t4 = obj.t4
                 var t5 = obj.t5
                 var t6 = obj.t6
-                $('#writeplace').html(gu)
-                $('#wheregu').val(gu)
+                var jumpo = obj.jumpo
+                $('#writeplace').html(gu+' '+sang+' '+gage)
+                $('#writeplace2').html('해당 상권은')
+                $('#gu').val(gu)
+                var wheresk = $("#sangcon").val()
+                
 
 
                 $('#age').on('click',function(){
@@ -277,56 +323,101 @@
                       },
                     })
                 })
+                $('#jumposu').on('click',function(){
+                $("#showChart").remove();
+                $("#chart").append("<canvas id='showChart'></canvas>");
+                var ctx6 = document.getElementById("showChart");
+                var myChart = new Chart(ctx6, {
+                  type: 'line',
+                  data: {
+                    labels: ['2020년 4분기','2021년 1분기','2021년 2분기','2021년 3분기' ],
+                    datasets: [{
+                      label: '분기별점포수 변동',
+                      data: [jumpo[3],jumpo[0],jumpo[1],jumpo[2]],
+                      borderColor: 'rgb(75, 192, 192)',
+                        }]
+                      }
+                    })
+                })
 
           }
-          ,error:function(request,status,error){
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          ,error:function(){
+            alert('현재 입력하신 상권에는 찾는 업종이 없습니다. 선발대가 되보실래요?');
           }
         })
       });
-      
-      // 생활인구 페이지로 이동
       $("#another").on('click',function () {
             var form = $('#form');
-            $('#wheregu').val()
+            $('#gu').val()
             form.submit();
       })
+      
+      $("#guselect").change(function() {
+        var wheregu = $("#guselect").val()
+        $('#wheregu').attr('value',wheregu);
+        alert(wheregu)
+        $.ajax({
+            url:'/guSang/',
+            data : {'gu':wheregu},
+            dataType:"json",
+            success: function(msg) {
+                // $('#sangcon').remove();
+                var obj = JSON.parse(msg)
+                var sang = obj.sangG
+                console.log(sang)
+                // $sangcon = $("<select>").prop('id','sangcon').append($("<option>").val(0).text(wheresk));
+                for(var i=0; i< sang.length; i++){
+                    console.log(sang[1])
+                    $sangcon.append($("<option>").val(sang[i]).text(sang[i]))
+                };
+                $("#DS").append($sangcon);
+                $('#sangcon').change(function(){
+                  var wheresk=$(this).val()
+                  alert(wheresk)
+                  $('#wheresk').attr('value',wheresk); 
+                })
+                }
+      })})
+    
+      
+      $("#check").on("click", function(){
+        window.open("", "showlist.html", "width=500, height=300, scrollbars=no");
+        $("#frm").submit();
+      });
 
-      // 서비스 업종 선택 팝업창
-      $("#check").on('click',function() {
-            open("/showlist/",'','width=700px,height=665px');
-      })
     })
 
-    // 팝업창 업종 선택시 텍스트 박스에 업종 값 변환
     function setChildValue(name){
-       document.getElementById('whatStore').value=name;
+        document.getElementById('whatStore').value=name;
     }
     
-    // 기존 받은 데이터 나옴 
-    $( document ).ready(function() {
-      $("#guselect").val("{{wheregu}}").attr("selected", "selected");
-    })
-
+    
+    
    </script>
    
 
 </head>
 <body>
-    <form>
+    <header>
         <div id="DS">
             <select id="guselect">
               {% for i in guList %}
                 <option id='guname' value="{{i}}">{{i}}</option>
               {% endfor %}
+            </select>
         </div>
-        </select>
-        <input type="text" id='whatStore' readonly="readonly" value="{{stname}}"/>
-        <input type="button" value="업종입력" id="check"/>
-        <input type="button" value="상가 확인" id="gogo">
+        
+        <input type="text" id='whatStore' readonly="readonly"/>
+        <input type="button" value="업종 선택" id="check"/>
+        <input type="button" value="  조 회  " id="gogo">
         <div id="yourfind">
             <span id="writeplace"></span>
         </div>
+        <div id="yourfind2">
+          <span id="writeplace2"></span>
+        </div>
+    </header>
+    <main>
         <div id="age">
           <img src="{% static 'img/age.png' %}" width="250px" height="110px">
         </div>
@@ -339,16 +430,23 @@
         <div id="sex">
           <img src="{% static 'img/sex.png' %}" width="250px" height="110px">
         </div>
+        <div id="jumposu">
+            <img src="{% static 'img/jumpo.png' %}" width="250px" height="110px">
+        </div>
 
         <div id="chart">
             <canvas id="showChart"></canvas>
         </div>
-    </form>
-    <form action="/gu/sangkwon/" id="form" name="form" method="post">{% csrf_token %}
-        <input type="text" name="wheregu" id="wheregu" style="display: none;">
-        <input type="text" name="wheresk" id="wheresk" style="display: none;">
-        <input type="button" id="another" value="인구 페이지도 볼래?">
-    </form>
+    </main>    
     
+    <!--돌아가기-->
+    <!-- <form action="/request/" id="form" name="form" method="post">{% csrf_token %}
+        <input type="text" name="gu" id="gu" style="display: none;">
+        <input type="button" id="another" value="인구 페이지도 볼래?">
+    </form> -->
+    <form id="frm" name="frm" method="post" action="/showlist/" target="showlist.html">{% csrf_token %}
+      <input type="text" id='wheregu' name='wheregu' value='' style="display:none">
+      <input type="text" id='wheresk' name='wheresk' value='' style="display:none">
+    </form>
 </body>
 </html>

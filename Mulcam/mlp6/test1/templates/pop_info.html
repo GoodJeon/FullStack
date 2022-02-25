@@ -12,10 +12,10 @@
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/treemap.js"></script>
     <script src="http://code.highcharts.com/modules/heatmap.js"></script>
-    
+    <link rel="stylesheet" href="{% static 'css/pop_info.css' %}" type="text/css">
     <script>
         $( document ).ready( function() {
-            $( 'body' ).fadeIn(2000)
+            $( '.sex' ).fadeIn(2000)
             if (mpop > fpop){
               $('.manimg').attr('src','{% static "img/male2.png" %}').stop(true,true).hide().fadeIn(4000)
             } else if (mpop < fpop){
@@ -27,196 +27,96 @@
         })
         
     </script>
-    <style>
-        @font-face{
-            font-family: 'Goyang';
-            src: url('../font/Goyang.ttf');
-            font-weight: normal;
-            font-style: normal;
-
-        }
-
-
-        body{
-            font-family: 'Goyang';
-            text-align: center;
-            width: 1350px;
-            display: none;
-        }
-
-        h1{
-            position: relative;
-            text-align: left;
-            padding-left: 20px;
-        }
-
-        .lf{
-            width: 100%;
-            height: 550;
-            border: 1px solid;
-
-        }
-
-
-        .left{
-            width: 40%;
-            height: 100%;
-            float:left;
-            box-sizing: border-box;
-        }
-
-        .right{
-            width: 60%;
-            height: 100%;
-            float: right;
-            box-sizing: border-box;
-        }
-
-        .left > div{
-            width: 100%;
-            height: 50%;
-            float:left;
-            border: 1px solid;
-        }
-
-        .right > div{
-            width: 100%;
-            height: 33.3%;
-            float:left;
-            border: 1px solid;
-        }
-
-        .returngu{
-            position: absolute;
-            top: 19px;
-            left: 300px;
-        }
-
-
-        .sex{
-            width: 100%;
-            height: 275;
-        }
-        .sex_title{
-            width:100%;
-            height:25px;
-        }
-
-        .sex_content{
-            width:100%;
-            height:250px;
-        }
-        .male{
-            width:50%;
-            height: 250px;
-            box-sizing: border-box;
-            float: left;
-        }
-
-        .female{
-            width:50%;
-            height:250px;
-            box-sizing: border-box;
-            float: right;
-        }
-
-        .m_left{
-            width:60%;
-            height:250px;
-            box-sizing: border-box;
-            float: left;
-        }
-        .f_left{
-            width:60%;
-            height:250px;
-            box-sizing: border-box;
-            float:left;
-        }
-
-        .m_right{
-            width:40%;
-            height:250px;
-            box-sizing: border-box;
-            float:left;
-        }
-        .f_right{
-            width:40%;
-            height:250px;
-            box-sizing: border-box;
-            float: left;
-        }
-
-        span{
-            display: block;
-        }
-    </style>
 </head>
 <body>
-    <nav>
-      <h1>{{wheregu}} {{ wheresk }}의 정보</h1>
-      <a class="returngu" href="/gu">
-        <img src="{% static 'img/back.png' %}" width = '30px' height="30px">
-      </a>
-    </nav>
-    <div class="lf">
-        <div class="left">
-            <div class="popul">
-                <div>
-                    <div class="my-4" id="myChart1" style='width:100%; height: 100%;'></div>
+    <header>
+      <div class="head1">
+        <h1>{{wheregu}} {{ wheresk }}의 정보</h1>
+      </div>
+      <div class="head2">
+        <a class="home" href="/">
+          <img src="{% static 'img/집2.png' %}" width = '70px' height="70px" style="display: inline;">
+        </a>
+      </div>
+    </header>
+    <main>
+      <div class="lf">
+          <div class="left">
+              <div class="popul">
+                  <div>
+                      <div class="my-4" id="myChart1" style='width:100%; height: 100%;'></div>
+                  </div>
+              </div>
+              <div class="sex">
+                <div class="sex_title">🚹성별에 따른 생활 인구🚺</div>
+                <div class="sex_content">
+                    <!-- <canvas class="my-4" id="myChart2" width="900" height="380"></canvas> -->
+                    <div class="male">
+                      <div class="m_left">
+                        <span class="man_title"><strong>남성</strong></span>
+                        <span><b>1년 생활인구 수</b></span>
+                        <span>{{mpop}} 명</span>
+                        <span><b>비율</b></span>
+                        <span>{{m}}%</span>
+                        
+                      </div>
+                      <div class="m_right">
+                        <img class='manimg' src="{% static 'img/male1.png' %}" width="100%" height="100%">
+                      </div>
+                    </div>
+                    <div class="female">
+                      <div class="f_left">
+                        <img class='womanimg'src="{% static 'img/female1.png' %}" width="100%" height="100%">
+                      </div>
+                      <div class="f_right">
+                        <span class="woman_title"><strong>여성</strong></span>
+                        <span><b>1년 생활인구 수</b></span>
+                        <span>{{fpop}} 명</span>
+                        <span><b>비율</b></span>
+                        <span>{{f}}%</span>
+                      </div>
+                    </div>
                 </div>
-            </div>
-            <div class="sex">
-              <div class="sex_title">🚹성별에 따른 생활 인구🚺</div>
-              <div class="sex_content">
-                  <!-- <canvas class="my-4" id="myChart2" width="900" height="380"></canvas> -->
-                  <div class="male">
-                    <div class="m_left">
-                      <img class='manimg' src="{% static 'img/male1.png' %}" width="100%" height="250">
-                    </div>
-                    <div class="m_right">
-                      <span class="man_title"><strong>남성</strong></span>
-                      <span><b>1년 생활인구 수</b></span>
-                      <span>{{mpop}} 명</span>
-                      <span><b>비율</b></span>
-                      <span>{{m}}%</span>
-                    </div>
-                  </div>
-                  <div class="female">
-                    <div class="f_left">
-                      <img class='womanimg'src="{% static 'img/female1.png' %}" width="100%" height="250">
-                    </div>
-                    <div class="f_right">
-                      <span class="woman_title"><strong>여성</strong></span>
-                      <span><b>1년 생활인구 수</b></span>
-                      <span>{{fpop}} 명</span>
-                      <span><b>비율</b></span>
-                      <span>{{f}}%</span>
-                    </div>
-                  </div>
               </div>
-            </div>
-        </div>
-        <div class="right">
-            <div class="day">
-              <div>요일 별 생활인구 수📆</div>
-              <div>
-                <canvas class="my-4" id="myChart3" width="900" height="180"></canvas>
+          </div>
+          <div class="right">
+              <div class="day">
+                <div>요일 별 생활인구 수📆</div>
+                <div>
+                  <canvas class="my-4" id="myChart3" style="height:170px; width:59vw" ></canvas>
+                </div>
               </div>
-            </div>
-            <div class="age">
-              <div>나이 별 생활인구 수🖐</div>
-              <div>
-                <canvas class="my-4" id="myChart4" width="900" height="180"></canvas>
+              <div class="age">
+                <div>나이 별 생활인구 수🖐</div>
+                <div>
+                  <canvas class="my-4" id="myChart4" style="height:170px; width:59vw" ></canvas>
+                </div>
               </div>
-            </div>
-            <div class="time">
-              <div>시간대 별 생활인구 수⏰</div>
-              <div>
-                <canvas class="my-4" id="myChart5" width="900" height="180"></canvas>
+              <div class="time">
+                <div>시간대 별 생활인구 수⏰</div>
+                <div>
+                  <canvas class="my-4" id="myChart5" style="height:170px; width:59vw" ></canvas>
+                </div>
               </div>
-            </div>
-        </div>
-    </div>
+          </div>
+      </div>
+    </main>
+    <footer>
+      <span>
+        <b>
+        Copyright ⓒ 2022. OB상조 All rights reserved /  
+        </b>
+      </span>
+      <span>
+        <b>Designed by 김화신 이성길 이종호 전동준 조완제 / </b>
+      </span>
+      <span>
+        <b>
+          Project Source : <a href="https://github.com/GoodJeon/MPJ_team6">https://github.com/GoodJeon/MPJ_team6</a>
+        </b> 
+      </span>
+      
+    </footer>
 
   
 
@@ -279,7 +179,7 @@
         //   }
         // })
          // 첫번째 차트
-         $(document).ready(function() {    
+        $(document).ready(function() {    
             Highcharts.chart('myChart1', {
                 chart: {
                     height: 275
@@ -375,6 +275,8 @@
                     ],
                 }]
             },
+            options: {
+            responsive: false}
         })
         
         // 네 번째 차트
@@ -430,6 +332,8 @@
               ],
             }]
           },
+          options: {
+            responsive: false}
         })
 
         // 다섯 번째 차트
@@ -484,6 +388,8 @@
               ],
             }]
           },
+          options: {
+            responsive: false}
         })
 
       </script>

@@ -6,64 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/gu.css' %}" type="text/css">
     <script src = 'https://code.jquery.com/jquery-3.6.0.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael.js"></script>
-
-    <style>
-        div{
-            border: 1px solid blue;
-            margin-top: 1px;
-        }
-        .title{
-            text-align: center;
-        }
-        .locName{
-            height: 100px;
-            text-align: center;
-            font-size: 60px;
-        }
-        .main{
-            height: 500px;
-        }
-        .mapArea{
-            margin-left: 10%;
-            margin-right: 10%;
-            height: 99%;
-        }
-        #paper{
-            margin-left: 25%;
-            width: 50%;
-            height: 100%;
-            
-        }
-    </style>
     <script>
         $( document ).ready( function() {
-            $( 'h1' ).fadeIn(1000, function() {
-                $( this ).css( 'color', 'blue' );
+            $( 'h1' ).fadeIn(4000, function() {
+                $( this ).css( 'color', 'white' );
         } );
         } );
     </script>
-    
 </head>
 <body>
-    <div class="title">
-        <h1>서울시 행정구를 선택해주세요.</h1>
-    </div>
-    
-    <div class="locName" id="locName" name="locName">
-
-    </div>
-    
+    <header>
+        <h1 style="color:dimgrey">서울시 행정구를 선택해주세요.</h1>
+    </header>
     <form action="/gu/sangkwon/" id="form" name="form" method="post">{% csrf_token %}
-        <div class="main">
-            <div class="mapArea">
-                <div id="paper"></div>
+        <main>
+            <div class="locName" id="locName" name="locName">
+
             </div>
-        </div>
-        <input type="text" name="wheregu" id="gu" style="display: none">
-        <input type="text" name="bt" value="{{bt}}" style="display:none">
+            
+            
+                    <div class="mapArea">
+                        <div id="paper"></div>
+                    </div>
+                <input type="text" name="wheregu" id="gu" style="display: none">
+                <input type="text" name="bt" value="{{bt}}" style="display:none">
+            
+        </main>
     </form>
+    <footer>
+        <span>
+            <b>
+            Copyright ⓒ 2022. OB상조 All rights reserved /  
+            </b>
+        </span>
+        <span>
+            <b>Designed by 김화신 이성길 이종호 전동준 조완제 / </b>
+        </span>
+        <span>
+            <b>
+            Project Source : <a href="https://github.com/GoodJeon/MPJ_team6">https://github.com/GoodJeon/MPJ_team6</a>
+            </b> 
+        </span>
+    </footer>
     <script>
         $(function(){
 	
@@ -71,7 +58,7 @@
             R.canvas.style.zoom = 0.7;
             
             var attr = {
-                    fill: "#81ecec",
+                    fill: "#ffffff",
                     stroke: "#000000",
                     "stroke-width": 1,
                     "stroke-linejoin": "round"
@@ -138,12 +125,12 @@
                         st[0].onmouseover = function() {
                             $('#locName').text(locInfo["loc" + st.id][0]);
                             if (current == st.id) { return }
-                            $(st.node).attr('fill', '#fab1a0');
+                            $(st.node).attr('fill', '#bbbbbb');
                             $(st.node).attr('stroke', '#000000');
                         };
                         st[0].onmouseout = function() {
                             if (current == st.id) { return }
-                            $(st.node).attr('fill', '#81ecec')
+                            $(st.node).attr('fill', '#ffffff')
                             $(st.node).attr('stroke', '#000000')
                             $('#locName').text('')
                         };

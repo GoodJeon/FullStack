@@ -24,8 +24,8 @@ urlpatterns = [
     path('gu/', views.gu,name='param'),
     path('gu/sangkwon/', views.sangkwon),
     path('gu/sangkwon/pop_info/', views.pop_info),
-    path('gu/sangkwon/storepage/',views.storepage,name='storepage'),
-    path('gu/sangkwon/storepage/guSang/',views.guSang),
-    path('gu/sangkwon/sk_info/',views.sk_info),
+    path('storepage/',views.storepage,name='storepage'),
+    path('guSang/',views.guSang),
     path('showlist/',views.showlist),
+    path('comeTodata/',views.comeTodata),
 ]
