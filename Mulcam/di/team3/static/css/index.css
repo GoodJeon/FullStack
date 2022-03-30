@@ -77,7 +77,24 @@ header{
     line-height: 68px;
     z-index: 2;
     background-color: #ffffff;
+    display: inline-block;
 }
+
+/* .head1{
+    width: 15%;
+    height:100%;
+    float:left;
+}
+.head2{
+    width:70%;
+    height:100%;
+    float:left;
+}
+.head3{
+    width: 15%;
+    height:100%;
+    float:left;
+} */
 
 h1{
     text-shadow: 1.5px 1.5px 1.5px gray;
@@ -91,12 +108,13 @@ main{
     display:inline-block;
     padding:0;
     z-index: 1;
-    margin-top:70px;
+    margin-top: 20%;
 }
 main > div{
     display:inline-block;
     margin: 0;
     padding: 0;
+    float:left;
 }
 .left{
     /* border: 1px solid red; */
@@ -111,9 +129,13 @@ main > div{
     height:100%;
     display: inline-block;
     align-items: center;
+    text-align: center;
+    font-size: 0;
+    
 }
 #d3{
     display: inline-block;
+    left: 10px;
 }
 
 .right{
@@ -128,7 +150,7 @@ main > div{
 footer{
     font-family: 'GmarketL';
     width:100%;
-    height:70px;
+    height:10%;
     /* border: 1px dotted yellow; */
     box-sizing: content-box;
     background-color: whitesmoke;

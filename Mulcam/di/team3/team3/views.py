@@ -245,24 +245,36 @@ def keyword_data(request):
     elif accident_type == 'Jaywalking':
         area = JaywalkingKeywordsearch.objects.all().order_by('category')
 
-    key = ['어린이','초등학교','놀이터','키즈카페',
-    '소아과','학원','요양원','경로당',
-    '공원','IC','요금소','버스터미널',
-    '관광지','숙박업소','시장','주차장','술집']
+    print(area[0])
+    # key = ['어린이','초등학교','놀이터','키즈카페',
+    # '소아과','학원','요양원','경로당',
+    # '공원','IC','요금소','버스터미널',
+    # '관광지','숙박업소','시장','주차장','술집']
     json_dict = {}
-    for i in key:
-        new_area = area.filter(keyword=i)
-        test = []
-        for j in new_area:
-            if j.category != 'nan':
-                test.append(j.category)
-            else:
-                continue
-        cate_name = list(Counter(test).keys())
-        cate_num = list(Counter(test).values())
-        key_obj = {'cate_name':cate_name,'cate_num':cate_num}
-        json_dict[i] = key_obj
-    json_dict['key'] = key
+    json_dict['type'] = accident_type
+    test = []
+    for i in area:
+        if i.category != 'nan' or i.category[-1] != '만':
+            test.append(i.category)
+        else:
+            continue
+    cate_name = list(Counter(test).keys())
+    cate_num = list(Counter(test).values())
+    key_obj = {'cate_name':cate_name, 'cate_num':cate_num}
+    json_dict['keyword'] = key_obj
+    # for i in key:
+    #     new_area = area.filter(keyword=i)
+    #     test = []
+    #     for j in new_area:
+    #         if j.category != 'nan':
+    #             test.append(j.category)
+    #         else:
+    #             continue
+    #     cate_name = list(Counter(test).keys())
+    #     cate_num = list(Counter(test).values())
+    #     key_obj = {'cate_name':cate_name,'cate_num':cate_num}
+    #     json_dict[i] = key_obj
+    # json_dict['key'] = key
     # print(json_dict)
     return JsonResponse(json_dict)
 

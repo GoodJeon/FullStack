@@ -5,18 +5,22 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1">
     <title>DI | Home</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js" type="text/JavaScript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/JavaScript"></script>
 </head>
 <body>
     <header>
-        
-            <h1>DataEngineering Team No.3 D.I</h1>
-       
+        <h1>DataEngineering Team No.3 D.I</h1>
+        <!-- <div class="head1"></div> -->
+        <!-- <div class="head2"></div> -->
+        <!-- <div class="head3"></div> -->
+            
+    
     </header>
 
 
@@ -33,30 +37,29 @@
              
             <a class='rarrow' href="infra/"><span></span></a>
         </div>
-        
-        <footer>
-            <span>
-                <b>
-                    Copyright ⓒ 2022. D.I All rights reserved
-                </b>
-            </span>
-            <span>
-                <b>
-                    Designed by 박지영 이재원 전동준 조성헌
-                </b>
-            </span>
-        </footer>
+
         {% endspaceless %}
     </main>
 
-
+    <footer>
+        <span>
+            <b>
+                Copyright ⓒ 2022. D.I All rights reserved
+            </b>
+        </span>
+        <span>
+            <b>
+                Designed by 박지영 이재원 전동준 조성헌
+            </b>
+        </span>
+    </footer>
     
 
 
     
 </body>
 <script>
-    var width = 1200,
+    var width = 1200
         height = 500
 
     var svg = d3.select("#d3").append("svg")
@@ -65,14 +68,14 @@
     d3.csv("{% static '/worddata.csv' %}", function (data) {
         showCloud(data)
         setInterval(function(){
-             showCloud(data)
+            showCloud(data)
         },2000) 
     });
     //scale.linear: 선형적인 스케일로 표준화를 시킨다. 
     //domain: 데이터의 범위, 입력 크기
     //range: 표시할 범위, 출력 크기 
     //clamp: domain의 범위를 넘어간 값에 대하여 domain의 최대값으로 고정시킨다.
-    wordScale = d3.scale.linear().domain([0, 50]).range([0, 50]).clamp(true);
+    wordScale = d3.scale.linear().domain([0, 10]).range([0, 50]).clamp(true);
     var keywords = ["전동준", "이재원", "조성헌", "박지영"]
     var svg = d3.select("svg")
                 .append("g")
@@ -119,6 +122,19 @@
                 })
                 .style("fill-opacity", 1); 
         }
+        $(document).ready(function(){
+            // if ($('svg')){
+                // $('#d3').attr('width','100%');
+                // $('#d3').attr('height','80%');
+                // $('svg').attr('width','100%');
+                // $('svg').attr('height','80%');
+            // }
+            // alert($('#d3').width())
+            // ($('#d3')).css('display','inline-block')
+            // ($('svg')).css('display','inline-block')
+        })
+        
+
     }
 </script>
 </html>

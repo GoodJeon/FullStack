@@ -4,7 +4,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1">
     <title>DI | Infra Data</title>
     <link rel="stylesheet" href="{% static 'css/infra.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
@@ -17,6 +17,11 @@
         <div class="home-btn"> 
             <a link="/"></a><span class="pulse-button" onclick="javascriot:location.href='/'">HOME</span></a>
         </div>
+        <!-- <div class="head1"></div> -->
+        <!-- <div class="head2"></div> -->
+        <!-- <div class="head3"></div> -->
+        
+        
     </header>
 
 
@@ -30,48 +35,56 @@
                
             <div class="center1">
                 <div class="union1" style="border:1px solid whitesmoke;">
-                    <p>인프라 설치 추이</p>
-                    <select name="type" id="accd">
-                        <option value="none">인프라 선택</option>
-                        <option value="InfSmartCross">스마트 횡단보드</option>
-                        <option value="InfSmartLamp">스마트 가로등</option>
-                        <option value="InfSpeedBump">과속 방지턱</option>
-                        <option value="InfYellowcarpet">옐로 카펫</option>
-                        <option value="InfUnCamera">무인 카메라</option>
-                        <option value="InfChildZone">어린이 보호구역</option>
-                        <option value="InfEleDisplay">가변 전광판</option>
-                    </select>
-                    <div style="position:relative;  width:610; height:50vh">
-                        <div id="container"></div>
+                    <div class="union1-1">
+                        <p>인프라 설치 추이</p>
+                        <select name="type" id="accd">
+                            <option value="none">인프라 선택</option>
+                            <option value="InfSmartCross">스마트 횡단보드</option>
+                            <option value="InfSmartLamp">스마트 가로등</option>
+                            <option value="InfSpeedBump">과속 방지턱</option>
+                            <option value="InfYellowcarpet">옐로 카펫</option>
+                            <option value="InfUnCamera">무인 카메라</option>
+                            <option value="InfChildZone">어린이 보호구역</option>
+                            <option value="InfEleDisplay">가변 전광판</option>
+                        </select>
+                    </div>
+                    <div class="union1-2">
+                        
                     </div>
                 </div>
-                <br>
                 <div class="union2" style="border:1px solid whitesmoke;">
-                    <p>연도별 모든 인프라 누적 개수와 사상자 추이</p>
-                    <div style="position:relative; width:610; height:50vh;">
-                        <canvas id="jsChart" width='605' height='320'></canvas>
+                    <div class="union2-1">
+                        <p>연도별 모든 인프라 누적 개수와 사상자 추이</p>
+                    </div>
+                    <div class="union2-2">
+                        <canvas id="jsChart" width='45vw' height='40vh'></canvas>
                     </div>
                 </div>
+                
             </div>
             <div class="center2">
                 <div class="union3" style="border:1px solid whitesmoke;">
-                    <p>연도별 교통사고 사상자 추이</p>
-                    <select name="type" id="seoulacc">
-                        <option value="none">사고유형 선택</option>
-                        <option value="CtoC">차대차</option>
-                        <option value="CtoP">차대사람</option>
-                        <option value="CAlone">차량단독</option>
-                    </select>
-                    <div style="position:relative; width:610; height:50vh;">
-                        <div id="containerss"></div>
+                    <div class="union3-1">
+                        <p>연도별 교통사고 사상자 추이</p>
+                        <select name="type" id="seoulacc">
+                            <option value="none">사고유형 선택</option>
+                            <option value="CtoC">차대차</option>
+                            <option value="CtoP">차대사람</option>
+                            <option value="CAlone">차량단독</option>
+                        </select>
+                    </div>
+                    <div class="union3-2">
+
                     </div>
                     
+                    
                 </div>
-                <br>
                 <div class="union4" style="border:1px solid whitesmoke;">
-                    <p>인구당 인프라 수 추이</p>
-                    <div style="position:relative; width:610; height:50vh;">
-                        <div id="container2"></div>
+                    <div class="union4-1">
+                        <p>지역별 인구당 인프라 수</p>
+                    </div>
+                    <div class="union4-2">
+
                     </div>
                 </div>
             </div>
@@ -80,21 +93,22 @@
               
             <a class='rarrow' href="keyword/"><span></span></a>
         </div>
-    
-        <footer>
-            <span>
-                <b>
-                    Copyright ⓒ 2022. D.I All rights reserved
-                </b>
-            </span>
-            <span>
-                <b>
-                    Designed by 박지영 이재원 전동준 조성헌
-                </b>
-            </span>
-        </footer>
+
         {% endspaceless %}
     </main>
+
+    <footer>
+        <span>
+            <b>
+                Copyright ⓒ 2022. D.I All rights reserved
+            </b>
+        </span>
+        <span>
+            <b>
+                Designed by 박지영 이재원 전동준 조성헌
+            </b>
+        </span>
+    </footer>
 
 </body>
 <script>
@@ -110,7 +124,7 @@
                 dataType: 'json',
                 success: function(msg){
                     //$('#container').text(msg['17'])
-                    $('#container').html("<canvas id='myChart' style='border 1px solid yellow' width='605' height='320'></canvas>")
+                    $('.union1-2').html("<canvas id='myChart' style='border 1px solid yellow' width='45vw' height='35vh'></canvas>")
                     // 차트를 그럴 영역을 dom요소로 가져온다.
                     var chartArea = document.getElementById('myChart').getContext('2d');
                     // 차트를 생성한다.
@@ -137,7 +151,7 @@
                         },
                         // ⑩차트의 설정(Object)
                         options: {
-                            responsive: false,
+                            // responsive: false,
                             maintainAspectRatio: false,
                             // ⑪축에 관한 설정(Object)
                             scales: {
@@ -246,8 +260,8 @@
 
             // Configuration options
             options: {
-                responsive: false,
-                // maintainAspectRatio: false,
+                // responsive: false,
+                maintainAspectRatio: false,
                 legend: {
 
 
@@ -284,7 +298,7 @@
         data : {'seoul_sago':seoul_sago},
         dataType: 'json',
         success: function(msg){
-          $('#containerss').html("<canvas id='mymultiChart' style='border 1px solid yellow' width='605' height='320'></canvas>")
+          $('.union3-2').html("<canvas id='mymultiChart' style='border 1px solid yellow' width='45vw' height='35vh'></canvas>")
           // chart create
           var chartArea = document.getElementById('mymultiChart').getContext('2d');
           var mymyltiChart = new Chart(chartArea, {
@@ -311,7 +325,8 @@
               ]
             },
             options: {
-              responsive: false,
+            //   responsive: false,
+              maintainAspectRatio: false,
               plugins: {
                 legend: {
                   position: 'top',
@@ -337,7 +352,7 @@
 
                     success: function(msg){
                         //$('#container2'i).text(msg['17'])
-                        $('#container2').html("<canvas id='myChart2' style='border 1px solid yellow' width='605' height='320'></canvas>")
+                        $('.union4-2').html("<canvas id='myChart2' width='45vw' height='40vh'></canvas>")
                         // 차트를 그럴 영역을 dom요소로 가져온다.
                         var chartArea = document.getElementById('myChart2').getContext('2d');
                         // 차트를 생성한다.
@@ -370,7 +385,8 @@
                             },
                             // ⑩차트의 설정(Object)
                             options: {
-                                responsive: false,
+                                // responsive: false,
+                                maintainAspectRatio: false,
                                     indexAxis: 'y',
                                 // ⑪축에 관한 설정(Object)
                                 scales: {
