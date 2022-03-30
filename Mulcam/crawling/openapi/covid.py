@@ -4,7 +4,7 @@ import re
 
 service_key='VXBYQ69L5Fwe5N6ROU%2BQDFRw2QT7VAQq2iW9WUSFjTxT5tCatN27CjwGwFKDLtqMhSaBV2BfjIAhytbw2lcWmg%3D%3D'
 
-url = f'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?ServiceKey={service_key}'
+url = f'http://apis.data.go.kr/B552061/frequentzoneFreezing?ServiceKey={service_key}'
 
 
 resp = requests.get(url)

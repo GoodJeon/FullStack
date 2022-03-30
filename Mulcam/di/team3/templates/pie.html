@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DI | NationWide</title>
+    <link rel="stylesheet" href="{% static 'css/pie.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Data on accident-prone areas nationwide</h1>
+        <div class="home-btn"> 
+            <a link="/"></a><span class="pulse-button" onclick="javascriot:location.href='/'">HOME</span></a>
+        </div>
+    </header>
+
+
+    <main>
+        {% spaceless %}
+        <div class="left">
+                
+            <a class='larrow' href="/infra/keyword/"><span></span></a>
+        </div>
+        <div class="center">
+               
+            <p id = 'title'>전국 사고다발지역 사고유형 별 발생건수</p>
+            <figure class="highcharts-figure" >
+                <div id="container_walk_child" style="float:left"></div>
+                <div id="container_oldman" style="float:left"></div>
+                <div id="container_holy" style="float:left"></div>
+                <br>
+                
+                <br>
+                <div id="container_jaywalk" style="float:left ;width: 50%;"></div>
+                <div id="container_school" style="float:left ;width: 50%;"></div>
+                <div style="clear:both"></div>
+                <p class="highcharts-description" >
+                    ▲ 유형별 전국 데이터      ▼ 시도별 유형 데이터 
+                </p>
+                <div style="clear:both"></div>
+            </figure>
+            
+            
+            <br>
+        
+            <div id = 'columns'>
+                <div class = 'sido_pie' id="sido01" ></div>
+                <div class = 'sido_pie' id="sido02" ></div>
+                <div class = 'sido_pie' id="sido03" ></div>
+                <div class = 'sido_pie' id="sido04" ></div>
+                <div class = 'sido_pie' id="sido05" ></div>
+                <div class = 'sido_pie' id="sido06" ></div>
+                <div class = 'sido_pie' id="sido07" ></div>
+                <!-- <div class = 'sido_pie' id="sido08" ></div> 세종 --> 
+                <div class = 'sido_pie' id="sido09" ></div>
+                <div class = 'sido_pie' id="sido10" ></div>
+                <div class = 'sido_pie' id="sido11" ></div>
+                <div class = 'sido_pie' id="sido12" ></div>
+                <div class = 'sido_pie' id="sido13" ></div>
+                <div class = 'sido_pie' id="sido14" ></div>
+                <div class = 'sido_pie' id="sido15" ></div>
+                <div class = 'sido_pie' id="sido16" ></div>
+                <div class = 'sido_pie' id="sido17" ></div>
+            </div>
+            <br>
+            <br>
+            
+            <div style="clear:both"></div>
+            <figure class="highcharts-figure" >
+                <div id="container"></div>
+                <p class="highcharts-description">
+                    세종시의 데이터는 공식적으론 아직 집계되지 않았다.
+                </p>
+            </figure>    
+
+
+        </div>
+        <div class="right">
+                
+            <!-- <a class='rarrow' href=""><span></span></a> -->
+        </div>
+    
+        <footer>
+            <span>
+                <b>
+                    Copyright ⓒ 2022. D.I All rights reserved
+                </b>
+            </span>
+            <span>
+                <b>
+                    Designed by 박지영 이재원 전동준 조성헌
+                </b>
+            </span>
+        </footer>
+        {% endspaceless %}
+    </main>
+    
+</body>
+<script>
+    // url 마음에는 안드는데 애니메이션 나와서 좋음
+    $(function () {
+        $.ajax({
+            url:'sido_pie/',
+            // data: {'infra':infra,},
+            dataType: 'json',
+            success: function(msg){
+                plz_data(msg)
+
+
+
+            }
+        })
+
+
+
+
+    // function
+    });
+
+    function plz_data(msg){
+        var option1 =  Highcharts.chart('container_walk_child', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: '보행어린이'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '서울',
+                    y: msg['보행어린이']['서울'],
+                    z: 92.9
+                }, {
+                    name: '부산',
+                    y: msg['보행어린이']['부산'],
+                    z: 118.7
+                }, {
+                    name: '대구',
+                    y: msg['보행어린이']['대구'],
+                    z: 124.6
+                }, {
+                    name: '인천',
+                    y: msg['보행어린이']['인천'],
+                    z: 137.5
+                }, {
+                    name: '광주',
+                    y: msg['보행어린이']['광주'],
+                    z: 201.8
+                }, {
+                    name: '대전',
+                    y: msg['보행어린이']['대전'],
+                    z: 254.5
+                }, {
+                    name: '울산',
+                    y: msg['보행어린이']['울산'],
+                    z: 260.6
+                },{
+                    name: '세종',
+                    y: msg['보행어린이']['세종'],
+                    z: 235.6
+                },{
+                    name: '경기',
+                    y: msg['보행어린이']['경기'],
+                    z: 285.6
+                },{
+                    name: '강원',
+                    y: msg['보행어린이']['강원'],
+                    z: 295.6
+                },{
+                    name: '충청북도',
+                    y: msg['보행어린이']['충청북도'],
+                    z: 315.6
+                },{
+                    name: '충청남도',
+                    y: msg['보행어린이']['충청남도'],
+                    z: 315.6
+                },{
+                    name: '전라북도',
+                    y: msg['보행어린이']['전라북도'],
+                    z: 325.6
+                },{
+                    name: '전라남도',
+                    y: msg['보행어린이']['전라남도'],
+                    z: 325.6
+                },{
+                    name: '경상북도',
+                    y: msg['보행어린이']['경상북도'],
+                    z: 335.6
+                },{
+                    name: '경상남도',
+                    y: msg['보행어린이']['경상남도'],
+                    z: 335.6
+                },{
+                    name: '제주',
+                    y: msg['보행어린이']['제주'],
+                    z: 355.6
+                },]
+            }]
+
+
+            // higth chart
+            });
+        var option1 =  Highcharts.chart('container_oldman', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: '노인보행자'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '서울',
+                    y: msg['노인보행']['서울'],
+                    z: 92.9
+                }, {
+                    name: '부산',
+                    y: msg['노인보행']['부산'],
+                    z: 118.7
+                }, {
+                    name: '대구',
+                    y: msg['노인보행']['대구'],
+                    z: 124.6
+                }, {
+                    name: '인천',
+                    y: msg['노인보행']['인천'],
+                    z: 137.5
+                }, {
+                    name: '광주',
+                    y: msg['노인보행']['광주'],
+                    z: 201.8
+                }, {
+                    name: '대전',
+                    y: msg['노인보행']['대전'],
+                    z: 254.5
+                }, {
+                    name: '울산',
+                    y: msg['노인보행']['울산'],
+                    z: 260.6
+                },{
+                    name: '세종',
+                    y: msg['노인보행']['세종'],
+                    z: 235.6
+                },{
+                    name: '경기',
+                    y: msg['노인보행']['경기'],
+                    z: 285.6
+                },{
+                    name: '강원',
+                    y: msg['노인보행']['강원'],
+                    z: 295.6
+                },{
+                    name: '충청북도',
+                    y: msg['노인보행']['충청북도'],
+                    z: 315.6
+                },{
+                    name: '충청남도',
+                    y: msg['노인보행']['충청남도'],
+                    z: 315.6
+                },{
+                    name: '전라북도',
+                    y: msg['노인보행']['전라북도'],
+                    z: 325.6
+                },{
+                    name: '전라남도',
+                    y: msg['노인보행']['전라남도'],
+                    z: 325.6
+                },{
+                    name: '경상북도',
+                    y: msg['노인보행']['경상북도'],
+                    z: 335.6
+                },{
+                    name: '경상남도',
+                    y: msg['노인보행']['경상남도'],
+                    z: 335.6
+                },{
+                    name: '제주',
+                    y: msg['노인보행']['제주'],
+                    z: 355.6
+                },]
+            }]
+
+
+            // higth chart
+            });
+
+        var option1 =  Highcharts.chart('container_holy', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: '연휴기간'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '서울',
+                    y: msg['연휴']['서울'],
+                    z: 92.9
+                }, {
+                    name: '부산',
+                    y: msg['연휴']['부산'],
+                    z: 118.7
+                }, {
+                    name: '대구',
+                    y: msg['연휴']['대구'],
+                    z: 124.6
+                }, {
+                    name: '인천',
+                    y: msg['연휴']['인천'],
+                    z: 137.5
+                }, {
+                    name: '광주',
+                    y: msg['연휴']['광주'],
+                    z: 201.8
+                }, {
+                    name: '대전',
+                    y: msg['연휴']['대전'],
+                    z: 254.5
+                }, {
+                    name: '울산',
+                    y: msg['연휴']['울산'],
+                    z: 260.6
+                },{
+                    name: '세종',
+                    y: msg['연휴']['세종'],
+                    z: 235.6
+                },{
+                    name: '경기',
+                    y: msg['연휴']['경기'],
+                    z: 285.6
+                },{
+                    name: '강원',
+                    y: msg['연휴']['강원'],
+                    z: 295.6
+                },{
+                    name: '충청북도',
+                    y: msg['연휴']['충청북도'],
+                    z: 315.6
+                },{
+                    name: '충청남도',
+                    y: msg['연휴']['충청남도'],
+                    z: 315.6
+                },{
+                    name: '전라북도',
+                    y: msg['연휴']['전라북도'],
+                    z: 325.6
+                },{
+                    name: '전라남도',
+                    y: msg['연휴']['전라남도'],
+                    z: 325.6
+                },{
+                    name: '경상북도',
+                    y: msg['연휴']['경상북도'],
+                    z: 335.6
+                },{
+                    name: '경상남도',
+                    y: msg['연휴']['경상남도'],
+                    z: 335.6
+                },{
+                    name: '제주',
+                    y: msg['연휴']['제주'],
+                    z: 355.6
+                },]
+            }]
+
+
+            // higth chart
+            });
+
+        var option1 =  Highcharts.chart('container_jaywalk', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: '무단횡단'
+           },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '서울',
+                    y: msg['무단횡단']['서울'],
+                    z: 92.9
+                }, {
+                    name: '부산',
+                    y: msg['무단횡단']['부산'],
+                    z: 118.7
+                }, {
+                    name: '대구',
+                    y: msg['무단횡단']['대구'],
+                    z: 124.6
+                }, {
+                    name: '인천',
+                    y: msg['무단횡단']['인천'],
+                    z: 137.5
+                }, {
+                    name: '광주',
+                    y: msg['무단횡단']['광주'],
+                    z: 201.8
+                }, {
+                    name: '대전',
+                    y: msg['무단횡단']['대전'],
+                    z: 254.5
+                }, {
+                    name: '울산',
+                    y: msg['무단횡단']['울산'],
+                    z: 260.6
+                },{
+                    name: '세종',
+                    y: msg['무단횡단']['세종'],
+                    z: 235.6
+                },{
+                    name: '경기',
+                    y: msg['무단횡단']['경기'],
+                    z: 285.6
+                },{
+                    name: '강원',
+                    y: msg['무단횡단']['강원'],
+                    z: 295.6
+                },{
+                    name: '충청북도',
+                    y: msg['무단횡단']['충청북도'],
+                    z: 315.6
+                },{
+                    name: '충청남도',
+                    y: msg['무단횡단']['충청남도'],
+                    z: 315.6
+                },{
+                    name: '전라북도',
+                    y: msg['무단횡단']['전라북도'],
+                    z: 325.6
+                },{
+                    name: '전라남도',
+                    y: msg['무단횡단']['전라남도'],
+                    z: 325.6
+                },{
+                    name: '경상북도',
+                    y: msg['무단횡단']['경상북도'],
+                    z: 335.6
+                },{
+                    name: '경상남도',
+                    y: msg['무단횡단']['경상남도'],
+                    z: 335.6
+                },{
+                    name: '제주',
+                    y: msg['무단횡단']['제주'],
+                    z: 355.6
+                },]
+            }]
+
+
+            // higth chart
+            });
+
+        var option1 =  Highcharts.chart('container_school', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: '스쿨존 발생사고'
+           },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '서울',
+                    y: msg['스쿨존']['서울'],
+                    z: 92.9
+                }, {
+                    name: '부산',
+                    y: msg['스쿨존']['부산'],
+                    z: 118.7
+                }, {
+                    name: '대구',
+                    y: msg['스쿨존']['대구'],
+                    z: 124.6
+                }, {
+                    name: '인천',
+                    y: msg['스쿨존']['인천'],
+                    z: 137.5
+                }, {
+                    name: '광주',
+                    y: msg['스쿨존']['광주'],
+                    z: 201.8
+                }, {
+                    name: '대전',
+                    y: msg['스쿨존']['대전'],
+                    z: 254.5
+                }, {
+                    name: '울산',
+                    y: msg['스쿨존']['울산'],
+                    z: 260.6
+                },{
+                    name: '세종',
+                    y: msg['스쿨존']['세종'],
+                    z: 235.6
+                },{
+                    name: '경기',
+                    y: msg['스쿨존']['경기'],
+                    z: 285.6
+                },{
+                    name: '강원',
+                    y: msg['스쿨존']['강원'],
+                    z: 295.6
+                },{
+                    name: '충청북도',
+                    y: msg['스쿨존']['충청북도'],
+                    z: 235.6
+                },{
+                    name: '충청남도',
+                    y: msg['스쿨존']['충청남도'],
+                    z: 315.6
+                },{
+                    name: '전라북도',
+                    y: msg['스쿨존']['전라북도'],
+                    z: 315.6
+                },{
+                    name: '전라남도',
+                    y: msg['스쿨존']['전라남도'],
+                    z: 325.6
+                },{
+                    name: '경상북도',
+                    y: msg['스쿨존']['경상북도'],
+                    z: 335.6
+                },{
+                    name: '경상남도',
+                    y: msg['스쿨존']['경상남도'],
+                    z: 335.6
+                },{
+                    name: '제주',
+                    y: msg['스쿨존']['제주'],
+                    z: 355.6
+                },]
+            }]
+
+
+            // higth chart
+            });
+
+        var option2 =  Highcharts.chart('sido01', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 서울'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['서울'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['서울'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['서울'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['서울'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['서울'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido02', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 부산'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['부산'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['부산'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['부산'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['부산'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['부산'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido03', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 대구'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['대구'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['대구'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['대구'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['대구'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['대구'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido04', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 인천'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['인천'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['인천'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['인천'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['인천'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['인천'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido05', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 광주'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['광주'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['광주'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['광주'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['광주'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['광주'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido06', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 대전'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['대전'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['대전'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['대전'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['대전'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['대전'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido07', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 울산'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['울산'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['울산'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['울산'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['울산'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['울산'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        
+        var option2 =  Highcharts.chart('sido09', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 경기'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['경기'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['경기'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['경기'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['경기'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['경기'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido10', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 강원'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['강원'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['강원'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['강원'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['강원'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['강원'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido11', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 충청북도'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['충청북도'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['충청북도'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['충청북도'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['충청북도'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['충청북도'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido12', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 충청남도'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['충청남도'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['충청남도'],
+                    z: 224.6
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['충청남도'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['충청남도'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['충청남도'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido13', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 전라북도'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['전라북도'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['전라북도'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['전라북도'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['전라북도'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['전라북도'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido14', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 전라남도'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['전라남도'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['전라남도'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['전라남도'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['전라남도'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['전라남도'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido15', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 경상북도'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['경상북도'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['경상북도'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['경상북도'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['경상북도'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['경상북도'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido16', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 경상남도'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['경상남도'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['경상남도'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['경상남도'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['경상남도'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['경상남도'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+        var option2 =  Highcharts.chart('sido17', {
+
+            chart: {
+                type: 'variablepie',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+            },
+            title: {
+                text: 'SiDo 제주'
+            },
+            tooltip: {
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'Area (square km): <b>{point.y}</b><br/>' +
+                    'Population density (people per square km): <b>{point.z}</b><br/>'
+            },
+            series: [{
+                minPointSize: 10,
+                innerSize: '20%',
+                zMin: 0,
+                name: 'countries',
+                data: [{
+                    name: '보행어린이',
+                    y: msg['보행어린이']['제주'],
+                    z: 92.9
+                }, {
+                    name: '노인보행',
+                    y: msg['노인보행']['제주'],
+                    z: 188.7
+                }, {
+                    name: '연휴',
+                    y: msg['연휴']['제주'],
+                    z: 224.6
+                }, {
+                    name: '무단횡단',
+                    y: msg['무단횡단']['제주'],
+                    z: 137.5
+                }, {
+                    name: '스쿨존',
+                    y: msg['스쿨존']['제주'],
+                    z: 201.8
+                }]
+            }]
+
+
+            // higth chart
+            });
+
+
+        var option3 = Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                backgroundColor:'rgba(255, 255, 255, 0.0)'
+                
+            },
+            title: {
+                text: '자자체별 고위험지역 발생건수'
+            },
+            subtitle: {
+                text: '2017~2020 4년간의 구별 top3 발생건수'
+            },
+            xAxis: {
+                categories: [
+                    '서울',
+                    '부산',
+                    '대구',
+                    '인천',
+                    '광주',
+                    '대전',
+                    '울산',
+                    '세종',
+                    '경기',
+                    '강원',
+                    '충청북도',
+                    '충청남도',
+                    '전라북도',
+                    '전라남도',
+                    '경상북도',
+                    '경상남도',
+                    '제주'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of traffic accidents'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} occur</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: '2017',
+                data: [msg['top'][2017]['서울'], msg['top'][2017]['부산'] , msg['top'][2017]['대구'] , msg['top'][2017]['인천'], msg['top'][2017]['광주'],
+                 msg['top'][2017]['대전'], msg['top'][2017]['울산'], msg['top'][2017]['세종'], msg['top'][2017]['경기'],
+                  msg['top'][2017]['강원'],  msg['top'][2017]['충청북도'],msg['top'][2017]['충청남도'],
+                  msg['top'][2017]['전라북도'],msg['top'][2017]['전라남도'],msg['top'][2017]['경상북도'],msg['top'][2017]['경상남도'],
+                  msg['top'][2017]['제주']]
+
+            }, {
+                name: '2018',
+                data: [msg['top'][2018]['서울'], msg['top'][2018]['부산'] , msg['top'][2018]['대구'] , msg['top'][2018]['인천'], msg['top'][2018]['광주'],
+                 msg['top'][2018]['대전'], msg['top'][2018]['울산'], msg['top'][2018]['세종'], msg['top'][2018]['경기'],
+                  msg['top'][2018]['강원'],  msg['top'][2018]['충청북도'],msg['top'][2018]['충청남도'],
+                  msg['top'][2018]['전라북도'],msg['top'][2018]['전라남도'],msg['top'][2018]['경상북도'],msg['top'][2018]['경상남도'],
+                  msg['top'][2018]['제주']]
+
+            }, {
+                name: '2019',
+                data: [msg['top'][2019]['서울'], msg['top'][2019]['부산'] , msg['top'][2019]['대구'] , msg['top'][2019]['인천'], msg['top'][2019]['광주'],
+                 msg['top'][2019]['대전'], msg['top'][2019]['울산'], msg['top'][2019]['세종'], msg['top'][2019]['경기'],
+                  msg['top'][2019]['강원'],  msg['top'][2019]['충청북도'],msg['top'][2019]['충청남도'],
+                  msg['top'][2019]['전라북도'],msg['top'][2019]['전라남도'],msg['top'][2019]['경상북도'],msg['top'][2019]['경상남도'],
+                  msg['top'][2019]['제주']]
+
+            }, {
+                name: '2020',
+                data: [msg['top'][2020]['서울'], msg['top'][2020]['부산'] , msg['top'][2020]['대구'] , msg['top'][2020]['인천'], msg['top'][2020]['광주'],
+                 msg['top'][2020]['대전'], msg['top'][2020]['울산'], msg['top'][2020]['세종'], msg['top'][2020]['경기'],
+                  msg['top'][2020]['강원'], msg['top'][2020]['충청북도'],msg['top'][2020]['충청남도'],
+                  msg['top'][2020]['전라북도'],msg['top'][2020]['전라남도'],msg['top'][2020]['경상북도'],msg['top'][2020]['경상남도'],
+                  msg['top'][2020]['제주']]
+
+            }]
+        // hight chart;
+        });
+
+
+
+
+
+
+    }
+
+
+    </script>
+</html>

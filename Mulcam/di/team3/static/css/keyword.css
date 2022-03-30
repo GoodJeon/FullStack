@@ -1,0 +1,347 @@
+/* 폰트 파트 */
+/* 배민 한나프로체 */
+@font-face{
+    font-family: 'Baemin';
+    src: url('../font/BMHANNAPro.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고도 마음체 */
+@font-face{
+    font-family: 'GodoM';
+    src: url('../font/GodoM.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 고양시 고양체 */
+@font-face{
+    font-family: 'Goyang';
+    src: url('../font/Goyang.ttf');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* G마켓체 */
+@font-face{
+    font-family: 'GmarketL';
+    src: url('../font/GmarketSansTTFLight.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'GmarketM';
+    src: url('../font/GmarketSansTTFMedium.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'GmarketB';
+    src: url('../font/GmarketSansTTFBold.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+*{
+    margin:0;
+    padding:0;
+}
+
+html{
+    width:100%;
+    height:100%;
+}
+
+
+body{
+    font-family: 'GmarketM';
+    width:100%;
+    height:100%;
+    /* border: 1px solid #0000ff; */
+    /* display:block; */
+}
+
+header{
+    width:100%;
+    height: 10%;
+    position:fixed;    
+    /* border: 1px dotted red; */
+    box-shadow: 0 1px 9px -3px rgb(0 0 0 / 40%);
+    box-sizing: content-box;
+    text-align: center;
+    line-height: 68px;
+    z-index: 2;
+    background-color: #ffffff;
+}
+
+h1{
+    text-shadow: 1.5px 1.5px 1.5px gray;
+}
+
+main{
+    width:100%;
+    height:90%;
+    /* border: 1px dotted orange; */
+    /* box-sizing: content-box; */
+    display:inline-block;
+    padding:0;
+    z-index: 1;
+    margin-top:90px;
+}
+main > div{
+    display:inline-block;
+    margin: 0;
+    padding: 0;
+    float:left;
+}
+.left{
+    /* border: 1px solid red; */
+    width:5%;
+    height:100%;
+    display:inline-block;   
+    
+}
+.center{
+    /* border : 1px solid blue; */
+    width:90%;
+    height:1250px;
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+    font-size: 0;
+}
+
+
+.right{
+    /* border: 1px solid green; */
+    width:5%;
+    height:100%;
+    display: inline-block;
+}
+
+footer{
+    font-family: 'GmarketL';
+    width:100%;
+    height:70px;
+    /* border: 1px dotted yellow; */
+    box-sizing: content-box;
+    background-color: whitesmoke;
+    display:table;
+    
+}
+
+footer > span{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+
+
+
+
+/* 움직이는 왼쪽 화살표 */
+.larrow {
+    padding-top: 60px;
+}
+.larrow span {
+    position: fixed;
+    top: 50%;
+    left: 2.5%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-animation: ldb 2s infinite;
+    animation: ldb 1s infinite;
+    box-sizing: border-box;
+}
+@-webkit-keyframes ldb {
+    0% {
+    -webkit-transform: rotate(45deg) translate(0, 0);
+}
+    20% {
+    -webkit-transform: rotate(45deg) translate(-10px, 10px);
+    }
+    40% {
+    -webkit-transform: rotate(45deg) translate(0, 0);
+    }
+}
+@keyframes ldb {
+    0% {
+    transform: rotate(45deg) translate(0, 0);
+    }
+    20% {
+    transform: rotate(45deg) translate(-10px, 10px);
+    }
+    40% {
+    transform: rotate(45deg) translate(0, 0);
+    }
+}
+
+/* 움직이는 오른쪽 화살표 */
+.rarrow {
+    padding-top: 60px;
+}
+.rarrow span {
+    position: fixed;
+    top: 50%;
+    left: 97.5%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+    -webkit-animation: rdb 2s infinite;
+    animation: rdb 1s infinite;
+    box-sizing: border-box;
+}
+@-webkit-keyframes rdb {
+    0% {
+    -webkit-transform: rotate(-135deg) translate(0, 0);
+}
+    20% {
+    -webkit-transform: rotate(-135deg) translate(-10px, 10px);
+    }
+    40% {
+    -webkit-transform: rotate(-135deg) translate(0, 0);
+    }
+}
+@keyframes rdb {
+    0% {
+    transform: rotate(-135deg) translate(0, 0);
+    }
+    20% {
+    transform: rotate(-135deg) translate(-10px, 10px);
+    }
+    40% {
+    transform: rotate(-135deg) translate(0, 0);
+    }
+}
+
+
+
+
+/* HOME버튼 */
+.home-btn {
+    width: 200px;
+    height: 100%;
+    margin: 0 auto 0;
+}
+
+.pulse-button {
+    /* position: relative; */
+    top: 50%;
+    left: 50%;
+    margin-left: 600px;
+    margin-top: -60px;
+    display: block;
+    width: 80px;
+    height: 50px;
+    font-size: 1.3em;
+    font-weight: light;
+    font-family: 'Trebuchet MS', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 50px;
+    letter-spacing: -1px;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    background: rgb(78, 96, 231);
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 10px transparent;
+    animation: pulse 1.5s infinite;
+    padding: 0 10px;
+}
+.pulse-button:hover {
+    animation: pulse2 1.5s infinite;
+    color: transparent;
+
+
+}
+.pulse-button::before {
+    content: "Click";
+    display: inline-block;
+    position: absolute;
+    padding: 0 10px;
+    color: transparent;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 50px;
+    background-color: transparent;
+    width: 80px;
+    height: 50px;
+    border: none;  
+    border-radius: 15px;      
+    left: 0%;
+    transition: all 1s;
+}
+
+.pulse-button:hover::before {
+    background:    radial-gradient(circle at 50% 0,
+                    rgba(255,0,0,.5),
+                    rgba(255,0,0,0) 70.71%),
+                    radial-gradient(circle at 6.7% 75%,
+                    rgba(0,0,255,.5),
+                    rgba(0,0,255,0) 70.71%),
+                    radial-gradient(circle at 93.3% 75%,
+                    rgba(0,255,0,.5),
+                    rgba(0,255,0,0) 70.71%) beige;
+    color: whitesmoke;    
+    border: none;     
+}
+
+
+@keyframes pulse {
+
+    0% {
+    transform :scale(0.9)
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0px 0px 20px 30px rgb(78, 96, 231, 0.5);
+    }
+    100% {
+        transform :scale(0.9);
+        box-shadow: 0px 0px 10px 0px rgb(78, 96, 231, 0.3);
+}
+}
+
+@keyframes pulse2 {
+    
+    0% {
+    transform :scale(0.9);
+    box-shadow: 0px 0px 10px 5px rgba(238, 229, 107, 0.774);
+    }
+
+    /* 30% {
+        transform: scale(1.1);
+        box-shadow: 0px 0px 20px 30px rgba(90, 153, 212 , 0.5);
+    } */
+
+    70% {
+        transform: scale(1.5);
+        box-shadow: 0px 0px 20px 20px rgba(255, 98, 93, 0.63);
+    }
+    100% {
+        transform :scale(0.9);
+        box-shadow: 0px 0px 10px 0px rgba(59, 151, 255, 0.2);
+}
+
+}
+
+
+
+

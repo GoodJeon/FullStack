@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DI | Infra Data</title>
+    <link rel="stylesheet" href="{% static 'css/infra.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Seoul's Traffic Infras Data</h1>
+        <div class="home-btn"> 
+            <a link="/"></a><span class="pulse-button" onclick="javascriot:location.href='/'">HOME</span></a>
+        </div>
+    </header>
+
+
+    <main>
+        {% spaceless %}
+        <div class="left">
+                
+            <a class='larrow' href="/"><span></span></a>
+        </div>
+        <div class="center">
+               
+            <div class="center1">
+                <div class="union1" style="border:1px solid whitesmoke;">
+                    <p>인프라 설치 추이</p>
+                    <select name="type" id="accd">
+                        <option value="none">인프라 선택</option>
+                        <option value="InfSmartCross">스마트 횡단보드</option>
+                        <option value="InfSmartLamp">스마트 가로등</option>
+                        <option value="InfSpeedBump">과속 방지턱</option>
+                        <option value="InfYellowcarpet">옐로 카펫</option>
+                        <option value="InfUnCamera">무인 카메라</option>
+                        <option value="InfChildZone">어린이 보호구역</option>
+                        <option value="InfEleDisplay">가변 전광판</option>
+                    </select>
+                    <div style="position:relative;  width:610; height:50vh">
+                        <div id="container"></div>
+                    </div>
+                </div>
+                <br>
+                <div class="union2" style="border:1px solid whitesmoke;">
+                    <p>연도별 모든 인프라 누적 개수와 사상자 추이</p>
+                    <div style="position:relative; width:610; height:50vh;">
+                        <canvas id="jsChart" width='605' height='320'></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="center2">
+                <div class="union3" style="border:1px solid whitesmoke;">
+                    <p>연도별 교통사고 사상자 추이</p>
+                    <select name="type" id="seoulacc">
+                        <option value="none">사고유형 선택</option>
+                        <option value="CtoC">차대차</option>
+                        <option value="CtoP">차대사람</option>
+                        <option value="CAlone">차량단독</option>
+                    </select>
+                    <div style="position:relative; width:610; height:50vh;">
+                        <div id="containerss"></div>
+                    </div>
+                    
+                </div>
+                <br>
+                <div class="union4" style="border:1px solid whitesmoke;">
+                    <p>인구당 인프라 수 추이</p>
+                    <div style="position:relative; width:610; height:50vh;">
+                        <div id="container2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+              
+            <a class='rarrow' href="keyword/"><span></span></a>
+        </div>
+    
+        <footer>
+            <span>
+                <b>
+                    Copyright ⓒ 2022. D.I All rights reserved
+                </b>
+            </span>
+            <span>
+                <b>
+                    Designed by 박지영 이재원 전동준 조성헌
+                </b>
+            </span>
+        </footer>
+        {% endspaceless %}
+    </main>
+
+</body>
+<script>
+    // 재원님 부분
+    $(function(){
+        $('#accd').change(function(){
+            // alert('뜨냐?')
+            infra = $("#accd option:selected").val()
+           // alert(infra)
+            $.ajax({
+                url:'infra_data/',
+                data: {'infra':infra,},
+                dataType: 'json',
+                success: function(msg){
+                    //$('#container').text(msg['17'])
+                    $('#container').html("<canvas id='myChart' style='border 1px solid yellow' width='605' height='320'></canvas>")
+                    // 차트를 그럴 영역을 dom요소로 가져온다.
+                    var chartArea = document.getElementById('myChart').getContext('2d');
+                    // 차트를 생성한다.
+                    var myChart = new Chart(chartArea, {
+                        // ①차트의 종류(String)
+                        type: 'bar',
+                        // ②차트의 데이터(Object)
+                        data: {
+                            // ③x축에 들어갈 이름들(Array)
+                            labels: ['2017', '2018', '2019', '2020', ],
+                            // ④실제 차트에 표시할 데이터들(Array), dataset객체들을 담고 있다.
+                            datasets: [{
+                                // ⑤dataset의 이름(String)
+                                label: '인프라 개수',
+                                // ⑥dataset값(Array)
+                                data: [msg['17'], msg['18'], msg['19'], msg['20'],],
+                                // ⑦dataset의 배경색(rgba값을 String으로 표현)
+                                backgroundColor: 'rgba(253, 250, 135, 0.2)',
+                                // ⑧dataset의 선 색(rgba값을 String으로 표현)
+                                borderColor: 'rgba(253, 250, 135, 1)',
+                                // ⑨dataset의 선 두께(Number)
+                                borderWidth: 1
+                            }]
+                        },
+                        // ⑩차트의 설정(Object)
+                        options: {
+                            responsive: false,
+                            maintainAspectRatio: false,
+                            // ⑪축에 관한 설정(Object)
+                            scales: {
+                                // ⑫y축에 대한 설정(Object)
+                                y: {
+                                    // ⑬시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            })
+        })
+    $.ajax({
+        url:'all_infra/',
+        // data: {'infra':infra,},
+        dataType: 'json',
+        success: function(msg){
+        var ctx = document.getElementById('jsChart').getContext('2d');
+        var chart = new Chart(ctx, {
+
+            // The type of chart we want to create
+            type: 'bar',
+
+            // The data for our dataset
+            data: {
+                labels: ['2017','2018','2019','2020'],
+                datasets: [
+                {
+                    label: '사상자/10',
+                    type : 'line',         // 'line' type
+                    fill : false,         // 채우기 없음
+                    lineTension : 0.2,  // 0이면 꺾은선 그래프, 숫자가 높을수록 둥글해짐
+                    pointRadius : 5,    // 각 지점에 포인트 주지 않음 0 ~ n
+                    backgroundColor: 'rgba(255, 175, 176, 1)',
+                    borderColor: 'rgba(255, 175, 176, 1)',
+                    data: [(msg['CG'][1]+msg['CG'][2])/10,(msg['CG'][4]+msg['CG'][5])/10,(msg['CG'][7]+msg['CG'][8])/10,
+                    (msg['CG'][10]+msg['CG'][11])/10]
+                },
+                {
+                    label: '과속방지턱',
+                    type : 'bar', // 'bar' type, 전체 타입과 같다면 생략가능
+                    backgroundColor: 'rgba(242, 207, 165, 0.7)',
+                    borderColor: 'rgba(242, 207, 165, 1)',
+                    data: [msg['infra_sp'][0],msg['infra_sp'][1]+msg['infra_sp'][0],msg['infra_sp'][2]+msg['infra_sp'][1]+msg['infra_sp'][0],
+                    msg['infra_sp'][3]+msg['infra_sp'][2]+msg['infra_sp'][1]+msg['infra_sp'][0]    ,]
+                },
+                {
+                    label: '스마트 횡단보도',
+                    type : 'bar', // 'bar' type, 전체 타입과 같다면 생략가능
+                    backgroundColor: 'rgba(253, 250, 135, 0.7)',
+                    borderColor: 'rgba(253, 250, 135, 1)',
+                    data: [msg['infra_smcro'][0],msg['infra_smcro'][1]+msg['infra_smcro'][0],msg['infra_smcro'][2]+msg['infra_smcro'][1]+msg['infra_smcro'][0],
+                    msg['infra_smcro'][3]+msg['infra_smcro'][2]+msg['infra_smcro'][1]+msg['infra_smcro'][0],]
+                }
+                ,
+                {
+                    label: '스마트 가로등',
+                    type : 'bar', // 'bar' type, 전체 타입과 같다면 생략가능
+                    backgroundColor: 'rgba(175, 255, 186, 0.7)',
+                    borderColor: 'rgba(175, 255, 186, 1)',
+                    data: [msg['infra_smlap'][0],msg['infra_smlap'][1]+msg['infra_smlap'][0],msg['infra_smlap'][2]+msg['infra_smlap'][1]+msg['infra_smlap'][0],
+                    msg['infra_smlap'][3]+msg['infra_smlap'][2]+msg['infra_smlap'][1]+msg['infra_smlap'][0]]
+                }
+                ,
+                {
+                    label: '옐로우카펫',
+                    type : 'bar', // 'bar' type, 전체 타입과 같다면 생략가능
+                    backgroundColor: 'rgba(174, 228, 255, 0.7)',
+                    borderColor: 'rgba(174, 228, 255, 1)',
+                    data: [msg['infra_yel'][0],msg['infra_yel'][1]+msg['infra_yel'][0],msg['infra_yel'][2]+msg['infra_yel'][1]+msg['infra_yel'][0],
+                    msg['infra_yel'][3]+msg['infra_yel'][2]+msg['infra_yel'][1]+msg['infra_yel'][0]]
+                }
+                ,
+                {
+                    label: '무인단속카메라',
+                    type : 'bar', // 'bar' type, 전체 타입과 같다면 생략가능
+                    backgroundColor: 'rgba(181, 199, 237, 0.7)',
+                    borderColor: 'rgba(181, 199, 237, 1)',
+                    data: [msg['infra_cam'][0],msg['infra_cam'][1]+msg['infra_cam'][0],msg['infra_cam'][2]+msg['infra_cam'][1]+msg['infra_cam'][0],
+                    msg['infra_cam'][3]+msg['infra_cam'][2]+msg['infra_cam'][1]+msg['infra_cam'][0]]
+                }
+                ,
+                {
+                    label: '어린이보호구역',
+                    type : 'bar', // 'bar' type, 전체 타입과 같다면 생략가능
+                    backgroundColor: 'rgba(202, 166, 254, 0.7)',
+                    borderColor: 'rgba(202, 166, 254, 1)',
+                    data: [msg['infra_chzone'][0],msg['infra_chzone'][1]+msg['infra_chzone'][0],
+                    msg['infra_chzone'][2]+msg['infra_chzone'][1]+msg['infra_chzone'][0],
+                    msg['infra_chzone'][3]+msg['infra_chzone'][2]+msg['infra_chzone'][1]+msg['infra_chzone'][0]]
+                }
+                ,
+                {
+                    label: '가변전광판',
+                    type : 'bar', // 'bar' type, 전체 타입과 같다면 생략가능
+                    backgroundColor: 'rgba(172, 184, 144, 0.7)',
+                    borderColor: 'rgba(172, 184, 144, 1)',
+                    data: [msg['infra_ele_display'][0],msg['infra_ele_display'][1]+msg['infra_ele_display'][0],
+                    msg['infra_ele_display'][2]+msg['infra_ele_display'][1]+msg['infra_ele_display'][0],
+                    msg['infra_ele_display'][3]+msg['infra_ele_display'][2]+msg['infra_ele_display'][1]+msg['infra_ele_display'][0]]
+                }
+                ]
+            },
+
+            // Configuration options
+            options: {
+                responsive: false,
+                // maintainAspectRatio: false,
+                legend: {
+
+
+                     labels: {
+                          fontColor: 'white' // label color
+                         }
+                     },
+
+                scales: {
+
+                     x: {
+
+                        stacked: true,
+                      },
+                     y: {
+
+                        stacked: true
+                     }
+                }
+            }
+        })
+    }})
+
+
+    // end point
+    });
+
+    // 지영님 부분
+    $(function(){
+    $('#seoulacc').change(function(){
+      seoul_sago = $('#seoulacc option:selected').val()
+      $.ajax({
+        url : 'sago_data/',
+        data : {'seoul_sago':seoul_sago},
+        dataType: 'json',
+        success: function(msg){
+          $('#containerss').html("<canvas id='mymultiChart' style='border 1px solid yellow' width='605' height='320'></canvas>")
+          // chart create
+          var chartArea = document.getElementById('mymultiChart').getContext('2d');
+          var mymyltiChart = new Chart(chartArea, {
+            type: 'bar',        
+            data: {                
+                labels: ['2017', '2018', '2019', '2020', ],                
+                datasets: [
+                  {                    
+                    label: '사망자수',   // 사망자수                
+                    data: [msg[0],msg[1],msg[2],msg[3]],
+
+                    backgroundColor: 'rgba(175, 255, 186, 0.2)',                    
+                    borderColor: 'rgba(175, 255, 186, 1)',                    
+                    borderWidth: 1
+                  },
+                  {
+                    label: '부상자수',   // 부상자수 # of Votes?       
+                    data: [msg[4],msg[5],msg[6],msg[7]],
+                    backgroundColor: 'rgba(174, 228, 255, 0.2)',                    
+                    borderColor: 'rgba(174, 228, 255, 1)',                    
+                    borderWidth: 1
+                  }
+
+              ]
+            },
+            options: {
+              responsive: false,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: false,
+                  text: 'Chart.js Bar Chart'
+                }
+              }
+            }
+          });
+        }
+      })
+    })
+  })
+
+    // 성헌님 부분
+    $(function(){
+                $.ajax({
+                    url:'infPopulation_data/',
+                    // data: {'population':population,},
+                    dataType: 'json',
+
+                    success: function(msg){
+                        //$('#container2'i).text(msg['17'])
+                        $('#container2').html("<canvas id='myChart2' style='border 1px solid yellow' width='605' height='320'></canvas>")
+                        // 차트를 그럴 영역을 dom요소로 가져온다.
+                        var chartArea = document.getElementById('myChart2').getContext('2d');
+                        // 차트를 생성한다.
+                        var myChart = new Chart(chartArea, {
+                            // ①차트의 종류(String)
+                            type: 'bar',
+                            // ②차트의 데이터(Object)
+                            data: {
+                                // ③x축에 들어갈 이름들(Array)
+                                labels: ['종로구','중구','용산구','성동구','광진구','동대문구','중랑구','성북구','강북구','도봉구',
+                                '노원구','은평구','서대문구','마포구','양천구','강서구','구로구','금천구','영등포구','동작구','관악구',
+                                '서초구','강남구','송파구','강동구',],
+                                // ④실제 차트에 표시할 데이터들(Array), dataset객체들을 담고 있다.
+                                datasets: [{
+                                    // ⑤dataset의 이름(String)
+                                    label: '서울시 구별 인구수',
+                                    // ⑥dataset값(Array)
+                                    data: [msg['종로구'],msg['중구'],msg['용산구'],msg['성동구'],msg['광진구'],msg['동대문구'],
+                                    msg['중랑구'],msg['성북구'],msg['강북구'],msg['도봉구'],msg['노원구'],msg['은평구'],msg['서대문구'],
+                                    msg['마포구'],msg['양천구'],msg['강서구'],msg['구로구'],msg['금천구'],msg['영등포구'],msg['동작구'],
+                                    msg['관악구'],msg['서초구'],msg['강남구'],msg['송파구'],msg['강동구'],],
+                                    // ⑦dataset의 배경색(rgba값을 String으로 표현)
+                                    
+                                    backgroundColor: 'rgba(255, 175, 216, 0.2)',
+                                    // ⑧dataset의 선 색(rgba값을 String으로 표현)
+                                    borderColor: 'rgba(255, 175, 216, 1)',
+                                    // ⑨dataset의 선 두께(Number)
+                                    borderWidth: 1
+                                }]
+                            },
+                            // ⑩차트의 설정(Object)
+                            options: {
+                                responsive: false,
+                                    indexAxis: 'y',
+                                // ⑪축에 관한 설정(Object)
+                                scales: {
+                                    // ⑫y축에 대한 설정(Object) -> horizontal bar 라서 x로 바꿈
+                                    y: {
+                                        // ⑬시작을 0부터 하게끔 설정(최소값이 0보다 크더라도)(boolean)
+                                        beginAtZero: true,
+                                        ticks : {
+                                            font : {
+                                                size: 6
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                })
+        })
+</script>
+</html>
