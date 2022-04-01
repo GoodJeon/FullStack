@@ -107,7 +107,7 @@ main{
     display:inline-block;
     padding:0;
     z-index: 1;
-    margin-top:20%;
+    margin-top:10%;
 }
 main > div{
     display:inline-block;

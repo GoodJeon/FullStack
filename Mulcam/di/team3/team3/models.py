@@ -200,6 +200,22 @@ class FrequentzoneoldmanAccident(models.Model):
         db_table = 'frequentzoneoldman_accident'
 
 
+class FrequentzoneoldmanKeywordsearch(models.Model):
+    id = models.IntegerField(primary_key=True)
+    year = models.IntegerField(blank=True, null=True)
+    sido = models.TextField(blank=True, null=True)
+    gugun = models.TextField(blank=True, null=True)
+    keyword = models.TextField(blank=True, null=True)
+    category = models.TextField(blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    center = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'frequentzoneoldman_keywordsearch'
+
+
 class FrequentzonetmzonAccident(models.Model):
     id = models.IntegerField(primary_key=True)
     address = models.TextField(blank=True, null=True)
@@ -240,7 +256,7 @@ class InfCarAcc(models.Model):
     ctop = models.IntegerField(db_column='CtoP', blank=True, null=True)  # Field name made lowercase.
     ctoc = models.IntegerField(db_column='CtoC', blank=True, null=True)  # Field name made lowercase.
     calone = models.IntegerField(db_column='CAlone', blank=True, null=True)  # Field name made lowercase.
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -253,7 +269,7 @@ class InfChildZone(models.Model):
     address = models.TextField(blank=True, null=True)
     sname = models.TextField(blank=True, null=True)
     stype = models.TextField(blank=True, null=True)
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
     sido = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -265,7 +281,7 @@ class InfEleDisplay(models.Model):
     id = models.IntegerField(primary_key=True)
     sido = models.TextField(blank=True, null=True)
     gugun = models.TextField(blank=True, null=True)
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -274,7 +290,7 @@ class InfEleDisplay(models.Model):
 
 class InfPopulation(models.Model):
     id = models.IntegerField(primary_key=True)
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
     gugun = models.TextField(blank=True, null=True)
     household = models.IntegerField(blank=True, null=True)
     pop_sum = models.IntegerField(blank=True, null=True)
@@ -296,7 +312,7 @@ class InfPopulation(models.Model):
 
 class InfSmartCross(models.Model):
     id = models.IntegerField(primary_key=True)
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
     sido = models.TextField(blank=True, null=True)
     gugun = models.TextField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
@@ -310,7 +326,7 @@ class InfSmartLamp(models.Model):
     id = models.IntegerField(primary_key=True)
     gugun = models.TextField(blank=True, null=True)
     sido = models.TextField(blank=True, null=True)
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -319,9 +335,10 @@ class InfSmartLamp(models.Model):
 
 class InfSpeedBump(models.Model):
     id = models.IntegerField(primary_key=True)
-    sido = models.TextField(blank=True, null=True)
-    gugun = models.TextField(blank=True, null=True)
-    year_code = models.FloatField(blank=True, null=True)
+    sido = models.TextField(db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
+    gugun = models.TextField(db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
+    type = models.TextField(db_collation='utf8mb4_0900_ai_ci', blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -334,7 +351,7 @@ class InfUnCamera(models.Model):
     gugun = models.TextField(blank=True, null=True)
     gubun = models.IntegerField(blank=True, null=True)
     type = models.TextField(db_column='Type', blank=True, null=True)  # Field name made lowercase.
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -344,7 +361,7 @@ class InfUnCamera(models.Model):
 class InfYellowcarpet(models.Model):
     id = models.IntegerField(primary_key=True)
     address = models.TextField(blank=True, null=True)
-    year_code = models.IntegerField(blank=True, null=True)
+    year_code = models.ForeignKey('Year', models.DO_NOTHING, db_column='year_code', blank=True, null=True)
     sido = models.TextField(blank=True, null=True)
     gugun = models.TextField(blank=True, null=True)
 

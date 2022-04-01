@@ -34,16 +34,16 @@ def infra_data(request):
     elif infra_type == 'InfEleDisplay':
         infra = InfEleDisplay.objects.all().order_by('-id')
     for i in infra:
-        lst.append(i.year_code)
+        lst.append(i.year_code.id)
         # print(type(i.year_code))
         # print(i.year_code)
-        if i.year_code == 17:
+        if i.year_code.id == 17:
             cnt_17 += 1
-        elif i.year_code == 18:
+        elif i.year_code.id == 18:
             cnt_18 += 1
-        elif i.year_code == 19:
+        elif i.year_code.id == 19:
             cnt_19 += 1
-        elif i.year_code == 20:
+        elif i.year_code.id == 20:
             cnt_20 += 1
         # print(infra)
         lst = set(lst)
@@ -84,13 +84,14 @@ def all_infra(request):
     print('------------------------------------------------')
     for i in range(len(lst_obj)):
         for obj in lst_obj[i]:
-            if obj.year_code == 17:
+            # print(obj.year_code)
+            if obj.year_code.id == 17:
                 cnt_17 += 1
-            elif obj.year_code == 18:
+            elif obj.year_code.id == 18:
                 cnt_18 += 1
-            elif obj.year_code == 19:
+            elif obj.year_code.id == 19:
                 cnt_19 += 1
-            elif obj.year_code == 20:
+            elif obj.year_code.id == 20:
                 cnt_20 += 1
         lst.append(cnt_17)
         lst.append(cnt_18)
@@ -106,16 +107,16 @@ def all_infra(request):
     acc = InfCarAcc.objects.all().order_by('id')
     for i in acc:
         sum_cg = 0
-        if (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code == 17:
+        if (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code.id == 17:
             # print(i.sum)
             sum_cg = i.sum
-        elif (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code == 18:
+        elif (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code.id == 18:
 
             sum_cg = i.sum
-        elif (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code == 19:
+        elif (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code.id == 19:
 
             sum_cg+= i.sum
-        elif (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code == 20:
+        elif (i.cg == '사망자수' or i.cg == '부상자수') and i.year_code.id == 20:
 
             sum_cg = i.sum
 
@@ -254,7 +255,7 @@ def keyword_data(request):
     json_dict['type'] = accident_type
     test = []
     for i in area:
-        if i.category != 'nan' or i.category[-1] != '만':
+        if i.category != 'nan' and i.category[-1] != '만':
             test.append(i.category)
         else:
             continue
