@@ -15,19 +15,30 @@ import datetime
 
 
 # 서울시 음식점 데이터 불러오기
-df_seoul = pd.read_csv('seoul_total_id.csv')
+df = pd.read_csv('seoul.csv')
 # 크롤링때매 추가한 부분
 num = int(input())
-df_seoul = df_seoul[df_seoul['id'] >= num]
-df_seoul = df_seoul.reset_index()
+df = df[df['id'] >= num]
+df = df.reset_index()
 ## id
-s_id = df_seoul['id']
+s_id = df['id']
 ## 식당 명
-name = df_seoul['s_name']
+name = df['s_name']
 ## XX구 -> XX으로 바꾸는 작업. ex) 용산구 -> 용산
-gu = df_seoul['s_add'].str.split(' ', expand=True)[1].str[:-1]
+if 's_add' in df.columns:
+    gu_add = df['s_add'].str.split(' ', expand=True)[1].str[:-1].fillna(0)
+    gu_road = df['s_road'].str.split(' ', expand=True)[1].str[:-1].fillna(0)
+    gu = []
+    for i in range(len(df)):
+        if gu_road[i] == 0:
+            gu.append(gu_add[i])
+        else:
+            gu.append(gu_road[i])
+else:
+    df['gu'] = df['s_road'].str.split(' ', expand=True)[1].str[:-1]
+    gu = df['gu'].fillna('남')
 ## 도로명 주소(대로)
-road = df_seoul['s_road'].str.split(' ', expand=True)[2]
+road = df['s_road'].str.split(' ', expand=True)[2]
 
 
 
@@ -66,7 +77,7 @@ seoul = []
 
 # 서울시 음식점 데이터 가져와서 그 크기만큼 반복문 실행
 
-for i in range(len(df_seoul)):
+for i in range(len(df)):
     # 검색창에 값 입력 후 Enter키
     driver.find_element(By.XPATH, '/html/body/header/div/label/input').send_keys(gu[i] + ' ' + name[i])
     sleep(2)
@@ -180,11 +191,11 @@ for i in range(len(df_seoul)):
                 print(f'리뷰 개수 : {review_count}')
                 store['s_review'] = []
                 for i in range(1, review_count + 1):
-                    review = {}
+                    review = []
                     re_content = driver.find_element(By.CSS_SELECTOR, f'body > main > article > div.column-wrapper > div.column-contents > div > section.RestaurantReviewList > ul > li:nth-child({i}) > a > div.RestaurantReviewItem__ReviewContent > div > p').text
-                    re_date = driver.find_element(By.CSS_SELECTOR, f'body > main > article > div.column-wrapper > div.column-contents > div > section.RestaurantReviewList > ul > li:nth-child({i}) > a > div.RestaurantReviewItem__ReviewContent > div > span').text
-                    review[re_date] = re_content
-                    store['s_review'].append(review)
+                    # re_date = driver.find_element(By.CSS_SELECTOR, f'body > main > article > div.column-wrapper > div.column-contents > div > section.RestaurantReviewList > ul > li:nth-child({i}) > a > div.RestaurantReviewItem__ReviewContent > div > span').text
+                    # review[re_date] = re_content
+                    store['s_review'].append(re_content)
             # 그 이상이면 더보기를 일정 횟수 눌러주도록 만들기
             else:
                 print('5개 이상임')
@@ -196,23 +207,28 @@ for i in range(len(df_seoul)):
                     driver.execute_script('arguments[0].click();', moreview_button)
                     sleep(2)
                 for i in range(1, review_count + 1):
-                    review = {}
+                    review = []
                     re_content = driver.find_element(By.CSS_SELECTOR, f'body > main > article > div.column-wrapper > div.column-contents > div > section.RestaurantReviewList > ul > li:nth-child({i}) > a > div.RestaurantReviewItem__ReviewContent > div > p').text
-                    re_date = driver.find_element(By.CSS_SELECTOR, f'body > main > article > div.column-wrapper > div.column-contents > div > section.RestaurantReviewList > ul > li:nth-child({i}) > a > div.RestaurantReviewItem__ReviewContent > div > span').text
+                    # re_date = driver.find_element(By.CSS_SELECTOR, f'body > main > article > div.column-wrapper > div.column-contents > div > section.RestaurantReviewList > ul > li:nth-child({i}) > a > div.RestaurantReviewItem__ReviewContent > div > span').text
                     
                     # 리뷰 날짜가 'O일 전' 이렇게 나오는 것들 때문에 현재 시간을 구해서 빼줘야함
-                    if '일' in re_date:
-                        day = int(re_date[0])
-                        dt_now = datetime.datetime.now()
-                        current = dt_now.date()
-                        re_date = str(current - datetime.timedelta(days=day))
-                    else:
-                        pass
+                    # if '일' in re_date:
+                        # day = int(re_date[0])
+                        # dt_now = datetime.datetime.now()
+                        # current = dt_now.date()
+                        # re_date = str(current - datetime.timedelta(days=day))
+                    # elif '시' in re_date:
+                        # hours = int(re_date.split()[0])
+                        # print(hours)
+                        # dt_now = datetime.datetime.now()
+                        # re_date = str((dt_now - datetime.timedelta(hours=hours)).date())
+                    # else:
+                        # pass
 
                     sleep(5)
                     # 날짜와 내용을 dict형태로 만들어서 append   
-                    review[re_date] = re_content
-                    store['s_review'].append(review)
+                    # review[re_date] = re_content
+                    store['s_review'].append(re_content)
 
 
             seoul.append(store)
@@ -243,12 +259,3 @@ for i in range(len(df_seoul)):
         mango['store'] = seoul
         with open(f'mango_{num}.json', 'w', encoding='utf-8') as f:
             json.dump(mango, f, ensure_ascii=False, indent = "\t")
-
-    
-    
-
-
-
-
-
-
