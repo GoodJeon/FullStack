@@ -438,7 +438,7 @@ class Mango():
                                 # else:
                                 #     pass
 
-                                sleep(5)
+                                # sleep(5)
                                 # 날짜와 내용을 list형태로 만들어서 append   
                                 # review.append(re_date)
                                 # review.append(re_content)
@@ -478,7 +478,7 @@ class Mango():
             if count % 1 == 0:
                 mango = OrderedDict()
                 mango['store'] = city
-                with open(f'mango_{file_name}_{s_id}.json', 'w', encoding='utf-8') as f:
+                with open(f'mango_{file_name}_{num}.json', 'w', encoding='utf-8') as f:
                     json.dump(mango, f, ensure_ascii=False, indent = "\t")
 
     
